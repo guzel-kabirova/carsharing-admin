@@ -1,0 +1,35 @@
+:root {
+  --font-fallback: -apple-system, 'BlinkMacSystemFont', system-ui, 'Roboto', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  --font-family: 'Helvetica', var(--font-fallback);
+
+  --page-name: 400 29px var(--font-family);
+  --title: 400 24px var(--font-family);
+  --subtitle: 500 17px var(--font-family);
+  --login-title: 400 17px var(--font-family);
+  --logo-min: 400 16px var(--font-family);
+  --main-text: 400 15px var(--font-family);
+  --footer-info: 500 14px var(--font-family);
+  --footer-link: 400 14px var(--font-family);
+  --text: 400 13px var(--font-family);
+  --table-header-horizontal: 700 12px var(--font-family);
+  --table-text: 500 12px var(--font-family);
+  --table-header-vertical: 400 12px var(--font-family);
+  --interactive-text: 400 11px var(--font-family);
+  --info-text: 400 10px var(--font-family);
+
+  --color-main-accent: #0EC261;
+  --color-blue: #007BFF;
+  --color-danger: #C4183C;
+  --color-background: #F5F6F8;
+  --color-white: #FFFFFF;
+
+  --color-text-dark: #3D5170;
+  --color-text: #495057;
+  --color-text-light: #818EA3;
+  --color-text-superlight: #CACEDB;
+
+  --shadow-main: 0px 2px 0px rgba(90, 97, 105, 0.11), 0px 4px 8px rgba(90, 97, 105, 0.12), 0px 10px 10px rgba(90, 97, 105, 0.06), 0px 7px 70px rgba(90, 97, 105, 0.1);
+
+  --radius-btn: 4px;
+  --radius-card: 9px;
+}
