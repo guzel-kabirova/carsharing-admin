@@ -1,0 +1,93 @@
+:host {
+  background-color: var(--color-background);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  margin-top: 167px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+
+  &__img {
+
+  }
+
+  &__title {
+    font: var(--title);
+    color: var(--color-text-dark);
+    margin-left: 11px;
+  }
+}
+
+.auth {
+  box-shadow: var(--shadow-main);
+  border-radius: var(--radius-card);
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  width: 376px;
+  height: 253px;
+
+  @media (max-width: 767px) {
+    width: 300px;
+  }
+
+  &__title {
+    font: var(--login-title);
+    color: var(--color-text-dark);
+    text-align: center;
+  }
+
+  &__form {
+    margin: 35px 0 0;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+
+  &__label {
+    font: var(--info-text);
+    color: var(--color-text);
+    margin-bottom: 8px;
+  }
+
+  &__input {
+    font: var(--interactive-text);
+    color: var(--color-text-dark);
+    border-radius: var(--radius-btn);
+    border: 1px solid var(--color-input);
+    height: 29px;
+    padding: 8px 11px;
+  }
+
+  &__action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__link {
+    color: var(--color-blue);
+    font: var(--info-text);
+  }
+
+  &__btn {
+    font: var(--interactive-text);
+    background-color: var(--color-blue);
+    color: var(--color-white);
+    height: 29px;
+    width: 110px;
+    border-radius: var(--radius-btn);
+  }
+}
