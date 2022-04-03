@@ -2,8 +2,11 @@
   --font-fallback: -apple-system, 'BlinkMacSystemFont', system-ui, 'Roboto', 'Segoe UI', 'Helvetica Neue', sans-serif;
   --font-family: 'Helvetica', var(--font-fallback);
 
+  --error-code: 500 75px var(--font-family);
+  --error-title: 400 50px var(--font-family);
   --page-name: 400 29px var(--font-family);
   --title: 400 24px var(--font-family);
+  --error-text: 400 20px var(--font-family);
   --subtitle: 500 17px var(--font-family);
   --login-title: 400 17px var(--font-family);
   --logo-min: 400 16px var(--font-family);

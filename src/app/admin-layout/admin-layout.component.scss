@@ -14,6 +14,7 @@
   }
 
   &__router {
+    height: calc(100vh - 68px - 68px);
     padding: 28px;
   }
 }
