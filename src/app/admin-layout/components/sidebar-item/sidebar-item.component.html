@@ -1,3 +1,6 @@
 <li class="item">
-  <a class="item__link" [routerLink]="['/admin', link]" routerLinkActive="item__link_active">{{name}}</a>
+  <a class="item__link" [routerLink]="['/admin', link]" routerLinkActive="item__link_active">
+    <svg class="icon" [icon]="iconName"></svg>
+    {{name}}
+  </a>
 </li>

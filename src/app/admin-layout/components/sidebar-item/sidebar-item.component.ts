@@ -8,6 +8,8 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 })
 export class SidebarItemComponent {
   @Input()
+  public iconName = '';
+  @Input()
   public name = '';
   @Input()
   public link = '';

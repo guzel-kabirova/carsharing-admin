@@ -3,6 +3,10 @@
     <app-logo class="logo"></app-logo>
   </div>
   <ul>
-    <app-sidebar-item *ngFor="let item of menuItems" [name]="item.name" [link]="item.link"></app-sidebar-item>
+    <app-sidebar-item *ngFor="let item of menuItems"
+                      [iconName]="item.iconName"
+                      [name]="item.name"
+                      [link]="item.link">
+    </app-sidebar-item>
   </ul>
 </div>

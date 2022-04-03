@@ -7,6 +7,10 @@
 
   &__search {
     padding: 26px 28px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-grow: 1;
   }
 
   &__input {
@@ -18,13 +22,17 @@
   &__notification {
     border-right: var(--border);
     border-left: var(--border);
-    padding: 26px 18px;
+    width: 68px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__person {
     display: flex;
     align-items: center;
     gap: 14px;
+    width: 168px;
     padding: 14px 22px 14px 26px;
   }
 
@@ -36,4 +44,22 @@
   &__name {
     font: var(--main-text);
   }
+}
+
+.search {
+  width: 14px;
+  height: 14px;
+  color: var(--color-text-superlight);
+}
+
+.notification {
+  width: 17px;
+  height: 20px;
+  color: var(--color-text-light);
+}
+
+.arrow {
+  width: 9px;
+  height: 5px;
+  color: var(--color-text-superlight);
 }

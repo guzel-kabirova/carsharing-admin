@@ -6,6 +6,8 @@ import {AppComponent} from './app.component';
 import {AuthModule} from './auth/auth.module';
 import {AdminModule} from './admin-layout/admin.module';
 import {LogoModule} from './shared/components/logo/logo.module';
+import {IconModule} from './shared/components/icon/icon.module';
+import {ICONS_PROVIDER} from './app.const';
 
 @NgModule({
   declarations: [
@@ -17,8 +19,9 @@ import {LogoModule} from './shared/components/logo/logo.module';
     AuthModule,
     AdminModule,
     LogoModule,
+    IconModule,
   ],
-  providers: [],
+  providers: [ICONS_PROVIDER],
   bootstrap: [AppComponent],
 })
 export class AppModule {

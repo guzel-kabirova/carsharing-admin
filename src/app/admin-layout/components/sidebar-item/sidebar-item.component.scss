@@ -5,12 +5,24 @@
   &__link {
     height: 100%;
     width: 100%;
-    display: block;
     font: var(--main-text);
     color: var(--color-text-dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
     &_active {
       color: var(--color-blue);
     }
   }
+}
+
+.icon {
+  color: var(--color-text-superlight);
+  width: 16px;
+  height: 16px;
+}
+
+.item__link_active .icon {
+  color: var(--color-blue);
 }

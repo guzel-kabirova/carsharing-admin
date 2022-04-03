@@ -8,6 +8,8 @@ import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {SidebarItemComponent} from './components/sidebar-item/sidebar-item.component';
 import {LogoModule} from '../shared/components/logo/logo.module';
 import {FooterComponent} from './components/footer/footer.component';
+import {ICONS_PROVIDER} from '../app.const';
+import {IconModule} from '../shared/components/icon/icon.module';
 
 @NgModule({
   declarations: [
@@ -21,10 +23,12 @@ import {FooterComponent} from './components/footer/footer.component';
     CommonModule,
     AdminRoutingModule,
     LogoModule,
+    IconModule,
   ],
   exports: [
     AdminRoutingModule,
   ],
+  providers: [ICONS_PROVIDER],
 })
 export class AdminModule {
 }
