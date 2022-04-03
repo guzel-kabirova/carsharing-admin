@@ -1,7 +1,6 @@
 <div class="content" *ngIf="form">
-  <div class="logo">
-    <img class="logo_ing" src="./assets/icons/logo.svg" alt="Carsharing app logo">
-    <h2 class="logo__title">Need for drive</h2>
+  <div class="logo__wrapper">
+    <app-logo class="logo"></app-logo>
   </div>
 
   <div class="auth">
@@ -9,13 +8,15 @@
     <form class="auth__form" [formGroup]="form">
       <div class="auth__field">
         <label for="mail" class="auth__label">Почта</label>
-        <input id="mail" class="auth__input" [class.auth__input_invalid]="isEmail || isEmailCorrect" type="email" formControlName="email">
+        <input id="mail" class="auth__input" [class.auth__input_invalid]="isEmail || isEmailCorrect" type="email"
+               formControlName="email">
         <div class="auth__error" *ngIf="isEmail">Введите почту</div>
         <div class="auth__error" *ngIf="isEmailCorrect">Введите корректную форму</div>
       </div>
       <div class="auth__field">
         <label for="password" class="auth__label">Пароль</label>
-        <input id="password" class="auth__input" [class.auth__input_invalid]="isPassword" type="password" formControlName="password">
+        <input id="password" class="auth__input" [class.auth__input_invalid]="isPassword" type="password"
+               formControlName="password">
         <div class="auth__error" *ngIf="isPassword">Введите пароль</div>
       </div>
     </form>

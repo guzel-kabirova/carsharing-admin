@@ -1,0 +1,15 @@
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: var(--logo-justify);
+
+  &__img {
+    width: var(--logo-size);
+  }
+
+  &__title {
+    font: var(--logo-text);
+    color: var(--color-text-dark);
+    margin-left: var(--logo-between);
+  }
+}

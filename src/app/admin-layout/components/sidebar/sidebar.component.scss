@@ -1,0 +1,19 @@
+.logo {
+  --logo-size: 21px;
+  --logo-text: var(--logo-min);
+  --logo-between: 7px;
+  --logo-justify: flex-start;
+}
+
+.sidebar {
+  width: 285px;
+  height: 100vh;
+  box-shadow: var(--shadow-main);
+  background-color: var(--color-white);
+
+  &__logo {
+    border-bottom: var(--border);
+    padding: 23px 49px;
+    height: 68px;
+  }
+}

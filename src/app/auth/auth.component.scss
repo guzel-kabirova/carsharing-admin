@@ -10,21 +10,15 @@
   margin-top: 167px;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.logo__wrapper {
   margin-bottom: 16px;
+}
 
-  &__img {
-
-  }
-
-  &__title {
-    font: var(--title);
-    color: var(--color-text-dark);
-    margin-left: 11px;
-  }
+.logo {
+  --logo-size: 44px;
+  --logo-text: var(--title);
+  --logo-between: 11px;
+  --logo-justify: center;
 }
 
 .auth {

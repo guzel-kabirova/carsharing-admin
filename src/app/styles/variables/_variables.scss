@@ -26,12 +26,17 @@
 
   --color-text-dark: #3D5170;
   --color-text: #495057;
+  --color-text-main: #5A6169;
   --color-text-light: #818EA3;
   --color-text-superlight: #CACEDB;
 
   --shadow-main: 0px 2px 0px rgba(90, 97, 105, 0.11), 0px 4px 8px rgba(90, 97, 105, 0.12), 0px 10px 10px rgba(90, 97, 105, 0.06), 0px 7px 70px rgba(90, 97, 105, 0.1);
   --shadow-error: 0px 2.5px 5.5px rgba(196, 24, 60, 0.1);
+  --shadow-header: 0px 2.5px 9.5px rgba(90, 97, 105, 0.12);
+  --shadow-footer: 0px -0.5px 0px #D7DAE3;
 
   --radius-btn: 4px;
   --radius-card: 9px;
+
+  --border: 1px solid var(--color-text-superlight);
 }

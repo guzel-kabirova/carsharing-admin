@@ -1,0 +1,16 @@
+.item {
+  border-bottom: var(--border);
+  padding: 22px 26px;
+
+  &__link {
+    height: 100%;
+    width: 100%;
+    display: block;
+    font: var(--main-text);
+    color: var(--color-text-dark);
+
+    &_active {
+      color: var(--color-blue);
+    }
+  }
+}
