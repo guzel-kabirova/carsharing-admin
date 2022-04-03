@@ -1,8 +1,12 @@
 .item {
   border-bottom: var(--border);
-  padding: 22px 26px;
+
+  &:hover {
+    background-color: var(--color-hover);
+  }
 
   &__link {
+    padding: 22px 26px;
     height: 100%;
     width: 100%;
     font: var(--main-text);
@@ -13,6 +17,8 @@
 
     &_active {
       color: var(--color-blue);
+      border-left: 4px solid var(--color-blue);
+      background-color: var(--color-hover);
     }
   }
 }

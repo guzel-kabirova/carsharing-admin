@@ -1,9 +1,9 @@
 :host {
-  background-color: var(--color-background);
   height: 100vh;
   overflow: hidden;
   display: flex;
   justify-content: center;
+  background-color: var(--color-background);
 }
 
 .content {
@@ -86,14 +86,5 @@
   &__link {
     color: var(--color-blue);
     font: var(--info-text);
-  }
-
-  &__btn {
-    font: var(--interactive-text);
-    background-color: var(--color-blue);
-    color: var(--color-white);
-    height: 29px;
-    width: 110px;
-    border-radius: var(--radius-btn);
   }
 }
