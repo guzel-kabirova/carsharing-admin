@@ -5,21 +5,25 @@
 
   <div class="auth">
     <h3 class="auth__title">Вход</h3>
+
     <form class="auth__form" [formGroup]="form">
-      <div class="auth__field">
-        <label for="mail" class="auth__label">Почта</label>
-        <input id="mail" class="auth__input" [class.auth__input_invalid]="isEmail || isEmailCorrect" type="email"
+      <div class="field">
+        <label for="mail" app-label>Почта</label>
+        <input app-input id="mail" class="input" [invalid]="isEmail || isEmailCorrect" type="email"
                formControlName="email">
-        <div class="auth__error" *ngIf="isEmail">Введите почту</div>
-        <div class="auth__error" *ngIf="isEmailCorrect">Введите корректную форму</div>
+        <app-error *ngIf="isEmail">Введите почту</app-error>
+        <app-error *ngIf="isEmailCorrect">Введите корректную форму</app-error>
       </div>
-      <div class="auth__field">
-        <label for="password" class="auth__label">Пароль</label>
-        <input id="password" class="auth__input" [class.auth__input_invalid]="isPassword" type="password"
+
+      <div class="field">
+        <label for="password" app-label>Пароль</label>
+        <input app-input id="password" class="input" [invalid]="isPassword" type="password"
+               autocomplete="off"
                formControlName="password">
-        <div class="auth__error" *ngIf="isPassword">Введите пароль</div>
+        <app-error *ngIf="isPassword">Введите пароль</app-error>
       </div>
     </form>
+
     <div class="auth__action">
       <a class="auth__link" routerLink="#">Запросить доступ</a>
       <button class="auth__btn" app-button (click)="submit()">Войти</button>

@@ -7,6 +7,7 @@ import {AuthComponent} from './auth.component';
 import {LogoModule} from '../shared/components/logo/logo.module';
 import {ErrorPageComponent} from '../error-page/error-page.component';
 import {ButtonModule} from '../shared/components/button/button.module';
+import {InputModule} from '../shared/components/input/input.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {ButtonModule} from '../shared/components/button/button.module';
     ReactiveFormsModule,
     LogoModule,
     ButtonModule,
+    InputModule,
   ],
   exports: [
     AuthComponent,
