@@ -1,5 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {tap} from 'rxjs/operators';
+
+import {AuthService} from './services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -18,35 +22,48 @@ export class AuthComponent implements OnInit {
     return this.form?.get('password');
   }
 
-  public get isEmail(): boolean {
+  public get isUsername(): boolean {
     return this.emailField && this.emailField.touched && this.emailField.errors?.required;
-  }
-
-  public get isEmailCorrect(): boolean {
-    return this.emailField && this.emailField.touched && this.emailField.errors?.email;
   }
 
   public get isPassword(): boolean {
     return this.passwordField && this.passwordField.touched && this.passwordField.errors?.required;
   }
 
-  constructor(private _fb: FormBuilder) { }
+  constructor(
+    private _fb: FormBuilder,
+    private _authService: AuthService,
+    private _router: Router,
+  ) { }
 
   ngOnInit() {
+    this.checkAuthentication();
     this.createForm();
   }
 
   private createForm() {
     this.form = this._fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
+  }
+
+  private checkAuthentication() {
+    if (this._authService.isAuthenticated()) {
+      this.navigateToAccount();
+    }
   }
 
   public submit() {
     if (this.form?.invalid) {
       return;
     }
-    console.log(this.form?.value);
+    this._authService.login(this.form?.value)
+      .pipe(tap(() => this.navigateToAccount()))
+      .subscribe();
+  }
+
+  private navigateToAccount() {
+    this._router.navigate(['/admin', 'card']);
   }
 }

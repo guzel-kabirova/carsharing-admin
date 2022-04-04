@@ -8,16 +8,15 @@
 
     <form class="auth__form" [formGroup]="form">
       <div class="field">
-        <label for="mail" app-label>Почта</label>
-        <input app-input id="mail" class="input" [invalid]="isEmail || isEmailCorrect" type="email"
-               formControlName="email">
-        <app-error *ngIf="isEmail">Введите почту</app-error>
-        <app-error *ngIf="isEmailCorrect">Введите корректную форму</app-error>
+        <label for="username" app-label>Имя пользователя</label>
+        <input app-input id="username" [invalid]="isUsername" type="text"
+               formControlName="username">
+        <app-error *ngIf="isUsername">Введите имя пользователя</app-error>
       </div>
 
       <div class="field">
         <label for="password" app-label>Пароль</label>
-        <input app-input id="password" class="input" [invalid]="isPassword" type="password"
+        <input app-input id="password" [invalid]="isPassword" type="password"
                autocomplete="off"
                formControlName="password">
         <app-error *ngIf="isPassword">Введите пароль</app-error>
