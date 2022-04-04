@@ -6,6 +6,8 @@ import {AppInterceptor} from './app.interceptor';
 import {environment} from '../environments/environment';
 
 export const API_URL = environment.apiUrl;
+export const LOGIN_DETAILS_URL = 'https://gist.github.com/internship-simbirsoft/3d634f32072b1e8514fc9fb19f88acdd';
+export const APP_URL = 'https://guzel-kabirova.github.io/carsharing/';
 
 export const ICONS_PROVIDER: Provider = {
   provide: ICONS_PATH,

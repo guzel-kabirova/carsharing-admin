@@ -62,7 +62,7 @@ export class AuthService {
   private handleError(error: HttpErrorResponse): Observable<never> {
     const status = error.status;
     if (status === 401) {
-      this.error$.next('Ошибка при регистрации!');
+      this.error$.next('Такого пользователя не существует. Пожалуйста, проверьте введенные данные');
     }
     return throwError(error);
   }

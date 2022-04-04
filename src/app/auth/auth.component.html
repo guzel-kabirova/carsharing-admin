@@ -6,7 +6,11 @@
   <div class="auth">
     <h3 class="auth__title">Вход</h3>
 
-    <form class="auth__form" [formGroup]="form">
+    <div class="auth__error">
+      <app-error *ngIf="error$ | async as error">{{error}}</app-error>
+    </div>
+
+    <form [formGroup]="form">
       <div class="field">
         <label for="username" app-label>Имя пользователя</label>
         <input app-input id="username" [invalid]="isUsername" type="text"
@@ -24,7 +28,7 @@
     </form>
 
     <div class="auth__action">
-      <a class="auth__link" routerLink="#">Запросить доступ</a>
+      <a class="auth__link" [href]="loginDetailsUrl">Запросить доступ</a>
       <button class="auth__btn" app-button (click)="submit()">Войти</button>
     </div>
   </div>

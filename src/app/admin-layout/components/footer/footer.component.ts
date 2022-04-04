@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {APP_URL} from '../../../app.const';
 
 @Component({
   selector: 'app-footer',
@@ -7,5 +8,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent {
+  public appUrl = APP_URL;
+
   constructor() { }
 }

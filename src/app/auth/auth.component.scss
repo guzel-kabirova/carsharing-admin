@@ -33,14 +33,14 @@
     width: 300px;
   }
 
+  &__error {
+    height: 35px;
+  }
+
   &__title {
     font: var(--login-title);
     color: var(--color-text-dark);
     text-align: center;
-  }
-
-  &__form {
-    margin: 35px 0 0;
   }
 
   &__action {

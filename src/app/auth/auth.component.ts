@@ -1,9 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {tap} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 import {AuthService} from './services/auth.service';
-import {Router} from '@angular/router';
+import {LOGIN_DETAILS_URL} from '../app.const';
 
 @Component({
   selector: 'app-auth',
@@ -13,9 +14,11 @@ import {Router} from '@angular/router';
 })
 export class AuthComponent implements OnInit {
   public form?: FormGroup;
+  public error$ = this._authService.error$;
+  public loginDetailsUrl = LOGIN_DETAILS_URL;
 
-  private get emailField(): AbstractControl | null | undefined {
-    return this.form?.get('email');
+  private get usernameField(): AbstractControl | null | undefined {
+    return this.form?.get('username');
   }
 
   private get passwordField(): AbstractControl | null | undefined {
@@ -23,7 +26,7 @@ export class AuthComponent implements OnInit {
   }
 
   public get isUsername(): boolean {
-    return this.emailField && this.emailField.touched && this.emailField.errors?.required;
+    return this.usernameField && this.usernameField.touched && this.usernameField.errors?.required;
   }
 
   public get isPassword(): boolean {
