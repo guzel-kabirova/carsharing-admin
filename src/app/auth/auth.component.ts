@@ -1,16 +1,19 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {tap} from 'rxjs/operators';
+import {takeUntil, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
 
 import {AuthService} from './services/auth.service';
 import {LOGIN_DETAILS_URL} from '../app.const';
+import {DestroyService} from '../shared/services/destroy.service';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DestroyService],
 })
 export class AuthComponent implements OnInit {
   public form?: FormGroup;
@@ -34,6 +37,7 @@ export class AuthComponent implements OnInit {
   }
 
   constructor(
+    @Inject(DestroyService) private _destroy$: Observable<void>,
     private _fb: FormBuilder,
     private _authService: AuthService,
     private _router: Router,
@@ -62,7 +66,10 @@ export class AuthComponent implements OnInit {
       return;
     }
     this._authService.login(this.form?.value)
-      .pipe(tap(() => this.navigateToAccount()))
+      .pipe(
+        tap(() => this.navigateToAccount()),
+        takeUntil(this._destroy$),
+      )
       .subscribe();
   }
 
