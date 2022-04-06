@@ -1,7 +1,8 @@
 import {CanLoad, Route, Router, UrlSegment, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
-import {AuthService} from './auth.service';
 import {Injectable} from '@angular/core';
+
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class AuthGuard implements CanLoad {
     if (isAuthenticated) {
       return true;
     }
-    this._router.navigate(['/admin']);
+    this._router.navigate(['']);
     return false;
   }
 

@@ -40,15 +40,15 @@ export class AuthService {
       );
   }
 
-  public logout() {
-    this.setToken(null);
+  public logout(): Observable<void> {
+    return this._http.post<void>(`${API_URL}auth/logout`, '');
   }
 
   public isAuthenticated(): boolean {
     return !!this.token;
   }
 
-  private setToken(response: IAuthResponseMapped | null) {
+  public setToken(response: IAuthResponseMapped | null) {
     if (response) {
       const expiresDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
       localStorage.setItem('api-token', response.token);

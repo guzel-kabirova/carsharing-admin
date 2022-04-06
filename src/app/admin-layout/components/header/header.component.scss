@@ -29,11 +29,13 @@
   }
 
   &__person {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 14px;
     width: 168px;
     padding: 14px 22px 14px 26px;
+    cursor: pointer;
   }
 
   &__avatar {
@@ -44,22 +46,47 @@
   &__name {
     font: var(--main-text);
   }
+
+  &__exit {
+    position: absolute;
+    top: 68px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background-color: var(--color-white);
+    width: 168px;
+    height: 68px;
+    padding: 14px 22px;
+    box-shadow: var(--shadow-header);
+    cursor: pointer;
+  }
 }
 
-.search {
-  width: 14px;
-  height: 14px;
+.icon {
   color: var(--color-text-superlight);
+
+  &__search {
+    width: 14px;
+    height: 14px;
+  }
+
+  &__notification {
+    width: 17px;
+    height: 20px;
+    color: var(--color-text-light);
+  }
+
+  &__arrow {
+    width: 9px;
+    height: 5px;
+  }
+
+  &__exit {
+    width: 16px;
+    height: 16px;
+    color: var(--color-danger);
+  }
 }
 
-.notification {
-  width: 17px;
-  height: 20px;
-  color: var(--color-text-light);
-}
-
-.arrow {
-  width: 9px;
-  height: 5px;
-  color: var(--color-text-superlight);
-}
