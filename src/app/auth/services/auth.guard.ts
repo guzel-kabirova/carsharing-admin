@@ -1,5 +1,4 @@
-import {CanLoad, Route, Router, UrlSegment, UrlTree} from '@angular/router';
-import {Observable} from 'rxjs';
+import {CanLoad, Router} from '@angular/router';
 import {Injectable} from '@angular/core';
 
 import {AuthService} from './auth.service';
@@ -13,7 +12,7 @@ export class AuthGuard implements CanLoad {
     private _router: Router,
   ) {}
 
-  canLoad(route: Route, segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canLoad(): boolean {
     const isAuthenticated = this._authService.isAuthenticated();
 
     if (isAuthenticated) {

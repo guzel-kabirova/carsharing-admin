@@ -28,10 +28,11 @@ export class AuthService {
   }
 
   private mapResponse(response: IAuthResponse): IAuthResponseMapped {
+    const {access_token, refresh_token, expires_in} = response;
     return {
-      token: response.access_token,
-      refreshToken: response.refresh_token,
-      expiresIn: response.expires_in,
+      token: access_token,
+      refreshToken: refresh_token,
+      expiresIn: expires_in,
     };
   }
 

@@ -41,7 +41,7 @@ export class AppInterceptor implements HttpInterceptor {
           this.throwErrorWhenRefreshing(error);
         }
 
-        if (error.status === 401) {
+        if (error.status === 401 && !req.url.includes('login')) {
           if (!this.isRefreshing) {
             this.refreshToken();
           }

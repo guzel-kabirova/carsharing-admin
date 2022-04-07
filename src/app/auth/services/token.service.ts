@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+
 import {IAuthResponseMapped} from '../auth.interface';
 
 @Injectable({
@@ -31,9 +32,10 @@ export class TokenService {
 
   public setToken(response: IAuthResponseMapped | null) {
     if (response) {
-      const expiresDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
-      localStorage.setItem('api-token', response.token);
-      localStorage.setItem('api-refresh-token', response.refreshToken);
+      const {expiresIn, token, refreshToken} = response;
+      const expiresDate = new Date(new Date().getTime() + +expiresIn * 1000);
+      localStorage.setItem('api-token', token);
+      localStorage.setItem('api-refresh-token', refreshToken);
       localStorage.setItem('api-expires', expiresDate.toString());
       return;
     }

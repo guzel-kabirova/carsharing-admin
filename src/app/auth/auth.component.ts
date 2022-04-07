@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {takeUntil, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
@@ -16,24 +16,27 @@ import {DestroyService} from '../shared/services/destroy.service';
   providers: [DestroyService],
 })
 export class AuthComponent implements OnInit {
-  public form?: FormGroup;
+  public form = this._fb.group({
+    username: ['', [Validators.required]],
+    password: ['', [Validators.required]],
+  });
   public error$ = this._authService.error$;
   public loginDetailsUrl = LOGIN_DETAILS_URL;
 
-  private get usernameField(): AbstractControl | null | undefined {
-    return this.form?.get('username');
+  private get usernameField(): AbstractControl {
+    return this.form.get('username') as AbstractControl;
   }
 
-  private get passwordField(): AbstractControl | null | undefined {
-    return this.form?.get('password');
+  private get passwordField(): AbstractControl {
+    return this.form.get('password') as AbstractControl;
   }
 
   public get isUsername(): boolean {
-    return this.usernameField && this.usernameField.touched && this.usernameField.errors?.required;
+    return this.usernameField.touched && this.usernameField.errors?.required;
   }
 
   public get isPassword(): boolean {
-    return this.passwordField && this.passwordField.touched && this.passwordField.errors?.required;
+    return this.passwordField.touched && this.passwordField.errors?.required;
   }
 
   constructor(
@@ -45,14 +48,6 @@ export class AuthComponent implements OnInit {
 
   ngOnInit() {
     this.checkAuthentication();
-    this.createForm();
-  }
-
-  private createForm() {
-    this.form = this._fb.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-    });
   }
 
   private checkAuthentication() {
@@ -62,10 +57,11 @@ export class AuthComponent implements OnInit {
   }
 
   public submit() {
-    if (this.form?.invalid) {
+    if (this.form.invalid) {
       return;
     }
-    this._authService.login(this.form?.value)
+    this.form.markAsPending();
+    this._authService.login(this.form.value)
       .pipe(
         tap(() => this.navigateToAccount()),
         takeUntil(this._destroy$),
