@@ -5,6 +5,7 @@ import {catchError, map, tap} from 'rxjs/operators';
 
 import {API_URL} from '../../app.const';
 import {IAuth, IAuthResponse, IAuthResponseMapped} from '../auth.interface';
+import {TokenService} from './token.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,51 +13,42 @@ import {IAuth, IAuthResponse, IAuthResponseMapped} from '../auth.interface';
 export class AuthService {
   public error$ = new Subject<string>();
 
-  get token(): string | null {
-    const expiresStr = localStorage.getItem('api-expires');
-    if (expiresStr) {
-      const expiresData = new Date(expiresStr);
-      if (new Date() > expiresData) {
-        this.logout();
-        return null;
-      }
-      return localStorage.getItem('api-token');
-    }
-    return null;
-  }
-
-  constructor(private _http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    private _tokenService: TokenService,
+  ) {}
 
   public login(loginInfo: IAuth): Observable<IAuthResponseMapped> {
     return this._http.post<IAuthResponse>(`${API_URL}auth/login`, loginInfo)
       .pipe(
-        map(response => ({
-          token: response.access_token,
-          refreshToken: response.refresh_token,
-          expiresIn: response.expires_in,
-        })),
-        tap(response => this.setToken(response)),
+        map(response => this.mapResponse(response)),
+        tap(response => this._tokenService.setToken(response)),
         catchError(error => this.handleError(error)),
       );
+  }
+
+  private mapResponse(response: IAuthResponse): IAuthResponseMapped {
+    return {
+      token: response.access_token,
+      refreshToken: response.refresh_token,
+      expiresIn: response.expires_in,
+    };
   }
 
   public logout(): Observable<void> {
     return this._http.post<void>(`${API_URL}auth/logout`, '');
   }
 
-  public isAuthenticated(): boolean {
-    return !!this.token;
+  public refresh(): Observable<IAuthResponseMapped> {
+    return this._http.post<IAuthResponse>(`${API_URL}auth/refresh`, {'refresh_token': this._tokenService.getRefreshToken()})
+      .pipe(
+        map(response => this.mapResponse(response)),
+        tap(response => this._tokenService.setToken(response)),
+      );
   }
 
-  public setToken(response: IAuthResponseMapped | null) {
-    if (response) {
-      const expiresDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
-      localStorage.setItem('api-token', response.token);
-      localStorage.setItem('api-refresh-token', response.refreshToken);
-      localStorage.setItem('api-expires', expiresDate.toString());
-      return;
-    }
-    localStorage.clear();
+  public isAuthenticated(): boolean {
+    return this._tokenService.hasToken() && !this._tokenService.isTokenExpired();
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {

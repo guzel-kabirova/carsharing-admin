@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 
 import {AuthService} from '../auth/services/auth.service';
 import {DestroyService} from '../shared/services/destroy.service';
+import {TokenService} from '../auth/services/token.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -17,6 +18,7 @@ export class AdminLayoutComponent {
   constructor(
     @Inject(DestroyService) private _destroy$: Observable<void>,
     private _service: AuthService,
+    private _tokenService: TokenService,
     private _router: Router,
   ) { }
 
@@ -25,7 +27,7 @@ export class AdminLayoutComponent {
       .pipe(
         tap(() => {
           this._router.navigate(['']);
-          this._service.setToken(null);
+          this._tokenService.setToken(null);
         }),
         takeUntil(this._destroy$),
       )
