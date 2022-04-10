@@ -1,0 +1,63 @@
+:host {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-background);
+}
+
+.content {
+  margin-top: 167px;
+}
+
+.logo__wrapper {
+  margin-bottom: 16px;
+}
+
+.logo {
+  --logo-size: 44px;
+  --logo-text: var(--title);
+  --logo-between: 11px;
+  --logo-justify: center;
+}
+
+.auth {
+  box-shadow: var(--shadow-main);
+  border-radius: var(--radius-card);
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  width: 376px;
+
+  @media (max-width: 767px) {
+    width: 300px;
+  }
+
+  &__error {
+    height: 35px;
+  }
+
+  &__title {
+    font: var(--login-title);
+    color: var(--color-text-dark);
+    text-align: center;
+  }
+
+  &__action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__link {
+    color: var(--color-blue);
+    font: var(--info-text);
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  height: 65px;
+  margin-bottom: 8px;
+}
