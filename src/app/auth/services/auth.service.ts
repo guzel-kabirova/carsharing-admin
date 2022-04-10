@@ -45,6 +45,7 @@ export class AuthService {
       .pipe(
         map(response => this.mapResponse(response)),
         tap(response => this._tokenService.setToken(response)),
+        catchError(error => throwError(error)),
       );
   }
 
