@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="arrow-down" viewBox="0 0 9 5">
+    <path d="M0 0.5L4.25 5L8.5 0.5H0Z" fill="currentColor"/>
+  </symbol>
+</svg>

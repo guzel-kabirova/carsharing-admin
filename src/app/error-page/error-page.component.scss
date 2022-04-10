@@ -1,0 +1,26 @@
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  text-align: center;
+
+  &__code {
+    color: var(--color-text-superlight);
+    font: var(--error-code);
+    margin-bottom: 13px;
+  }
+
+  &__title {
+    color: var(--color-text-dark);
+    font: var(--error-title);
+    margin-bottom: 15px;
+  }
+
+  &__text {
+    color: var(--color-text-light);
+    font: var(--error-text);
+    margin-bottom: 34px;
+  }
+}
