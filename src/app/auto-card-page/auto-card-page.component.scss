@@ -1,0 +1,22 @@
+.card {
+  &__content {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+  }
+
+  &__info, &__settings {
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-main);
+    border-radius: var(--radius-card);
+  }
+
+  &__info {
+    width: 30%;
+  }
+
+  &__settings {
+    width: 70%;
+    align-self: stretch;
+  }
+}
