@@ -6,6 +6,10 @@
 
   &__sidebar {
     z-index: 2;
+
+    @media (max-width: 750px) {
+      display: none;
+    }
   }
 
   &__content {
