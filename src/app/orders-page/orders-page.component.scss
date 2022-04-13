@@ -1,0 +1,13 @@
+.orders {
+  background-color: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-main);
+  height: 386px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__pagination {
+    margin: 21px auto 20px;
+  }
+}

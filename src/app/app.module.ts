@@ -12,6 +12,7 @@ import {ButtonModule} from './shared/components/button/button.module';
 import {AutoCardPageComponent} from './auto-card-page/auto-card-page.component';
 import {AutoListPageComponent} from './auto-list-page/auto-list-page.component';
 import {OrdersPageComponent} from './orders-page/orders-page.component';
+import {PaginationModule} from './shared/components/pagination/pagination.module';
 import {AutoInfoComponent} from './auto-card-page/auto-info/auto-info.component';
 import {AutoSettingsComponent} from './auto-card-page/auto-settings/auto-settings.component';
 
@@ -32,6 +33,7 @@ import {AutoSettingsComponent} from './auto-card-page/auto-settings/auto-setting
     LogoModule,
     IconModule,
     ButtonModule,
+    PaginationModule,
   ],
   providers: [ICONS_PROVIDER],
   bootstrap: [AppComponent],
