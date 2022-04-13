@@ -1,0 +1,27 @@
+.input-file {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: var(--border-input);
+  border-radius: var(--radius-btn);
+  height: 30px;
+  width: 230px;
+  font: var(--table-header-vertical);
+  overflow: hidden;
+  cursor: pointer;
+
+  &__placeholder {
+    color: var(--color-text);
+    padding: 8px 13px;
+  }
+
+  &__modern {
+    display: none;
+  }
+
+  &__btn {
+    background-color: var(--color-secondary);
+    width: 65px;
+    padding: 8px 13px;
+  }
+}

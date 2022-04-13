@@ -1,0 +1,44 @@
+<div class="settings">
+  <div class="settings__content">
+    <h3 class="settings__title">Настройки автомобиля</h3>
+
+    <div class="settings__first-line">
+      <div class="field">
+        <label for="model" app-label>Модель автомобиля</label>
+        <input id="model" app-input value="Hyndai, i30 N">
+      </div>
+
+      <div class="field">
+        <label for="type" app-label>Тип автомобиля</label>
+        <input id="type" app-input value="Компакт-кар" [invalid]="true">
+        <app-error>Пример ошибки</app-error>
+      </div>
+    </div>
+
+
+    <div class="field">
+      <label for="color" app-label>Доступные цвета</label>
+      <div class="field__color">
+        <input id="color" class="field__input" app-input value="Синий">
+        <div class="field__add">
+          <svg class="icon" icon="add"></svg>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="settings__checkboxes">
+      <app-checkbox idName="red" labelName="Красный"></app-checkbox>
+      <app-checkbox idName="white" labelName="Белый"></app-checkbox>
+      <app-checkbox idName="black" labelName="Черный"></app-checkbox>
+    </div>
+  </div>
+
+  <div class="settings__action">
+    <div class="settings__left-btns">
+      <button app-button>Сохранить</button>
+      <button app-button class="settings__action_cancel">Отменить</button>
+    </div>
+    <button app-button class="settings__action_delete">Удалить</button>
+  </div>
+</div>
