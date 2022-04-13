@@ -6,6 +6,9 @@ import {AdminLayoutComponent} from './admin-layout.component';
 import {AutoCardPageComponent} from '../auto-card-page/auto-card-page.component';
 import {AutoListPageComponent} from '../auto-list-page/auto-list-page.component';
 import {OrdersPageComponent} from '../orders-page/orders-page.component';
+import {CheckboxModule} from '../shared/components/checkbox/checkbox.module';
+import {InputFileModule} from '../shared/components/input-file/input-file.module';
+import {InputModule} from '../shared/components/input/input.module';
 
 const routes: Routes = [
   {
@@ -21,7 +24,12 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [
+    RouterModule,
+    CheckboxModule,
+    InputFileModule,
+    InputModule,
+  ],
 })
 export class AdminRoutingModule {
 

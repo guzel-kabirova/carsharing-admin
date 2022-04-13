@@ -1,1 +1,13 @@
 @import "variables";
+
+.field {
+  display: flex;
+  flex-direction: column;
+  height: 65px;
+}
+
+.page-name {
+  font: var(--page-name);
+  color: var(--color-text-dark);
+  margin-bottom: 28px;
+}
