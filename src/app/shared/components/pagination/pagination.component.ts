@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
 import {Pagination} from './pagination.enum';
-import {range} from '../../utils/range';
 
 @Component({
   selector: 'app-pagination',
@@ -11,24 +10,13 @@ import {range} from '../../utils/range';
 })
 export class PaginationComponent {
   public buttonName = Pagination;
+
   @Input()
-  private _paginationIndex = 0;
+  public firstPage = 1;
   @Input()
-  private _paginationSize = 10;
-  @Input()
-  private _totalPages = 31;
+  public totalPages = 31;
 
-  public pages = range(this._paginationIndex, this._totalPages);
-
-  public get isFirst(): boolean {
-    return this.activePage === 0;
-  }
-
-  public get isLast(): boolean {
-    return this.activePage === this._totalPages - 1;
-  }
-
-  private _activePage = this._paginationIndex;
+  private _activePage = this.firstPage;
 
   public get activePage(): number {
     return this._activePage;
@@ -36,6 +24,58 @@ export class PaginationComponent {
 
   public set activePage(page: number) {
     this._activePage = page;
+  }
+
+  public get isPrevActive(): boolean {
+    return this.activePage > this.firstPage;
+  }
+
+  public get isNextActive(): boolean {
+    return this.activePage < this.totalPages;
+  }
+
+  public get isFirstDots(): boolean {
+    return this.activePage > 3;
+  }
+
+  public get isLastDots(): boolean {
+    return this.activePage < this.totalPages - 2;
+  }
+
+  public get pagesInterval(): number[] {
+    const current = this.activePage;
+    let before = current - 1;
+    let after = current + 1;
+    const pages = [];
+
+    switch (current) {
+      case this.totalPages:
+        before = before - 2;
+        break;
+      case this.totalPages - 1:
+        before = before - 1;
+        break;
+      case this.firstPage:
+        after = after + 2;
+        break;
+      case this.firstPage + 1:
+        after = after + 1;
+        break;
+    }
+
+    for (let page = before; page <= after; page++) {
+      if (page > this.totalPages) {
+        break;
+      }
+
+      if (page === 0) {
+        page++;
+      }
+
+      pages.push(page);
+    }
+
+    return pages;
   }
 
   constructor() { }

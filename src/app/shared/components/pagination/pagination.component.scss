@@ -2,14 +2,19 @@
   font: var(--main-text);
   color: var(--color-blue);
   display: flex;
+  justify-content: space-between;
+  width: 210px;
+
+  &__numbers {
+    display: flex;
+  }
 
   &__page, &__dots, &__prev, &__next {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 18px;
-    height: 18px;
-    padding: 6px;
+    width: 24px;
+    height: 24px;
   }
 
   &__page, &__prev, &__next {
@@ -27,7 +32,7 @@
 
     &_active {
       background-color: var(--color-blue);
-      border-radius: 9px;
+      border-radius: 50%;
       color: var(--color-white);
       cursor: default;
     }
