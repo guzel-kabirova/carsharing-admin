@@ -17,6 +17,7 @@ import {AutoInfoComponent} from './auto-card-page/auto-info/auto-info.component'
 import {AutoSettingsComponent} from './auto-card-page/auto-settings/auto-settings.component';
 import {OrdersFilterComponent} from './orders-page/orders-filter/orders-filter.component';
 import {OrderComponent} from './orders-page/order/order.component';
+import {InputFilterModule} from './shared/components/input-filter/input-filter.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {OrderComponent} from './orders-page/order/order.component';
     IconModule,
     ButtonModule,
     PaginationModule,
+    InputFilterModule,
   ],
   providers: [ICONS_PROVIDER],
   bootstrap: [AppComponent],

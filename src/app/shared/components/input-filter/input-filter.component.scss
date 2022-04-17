@@ -1,0 +1,25 @@
+.input {
+  padding: 8px 11px 8px 14px;
+  width: 110px;
+  border: var(--border-input);
+  border-radius: var(--radius-btn);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-text-description);
+  font: var(--interactive-text);
+
+  &__hidden {
+    border: none;
+    width: 100%;
+    padding: 0;
+    background: none;
+  }
+
+  &__icon {
+    width: 6px;
+    height: 6px;
+    color: var(--color-black);
+    cursor: pointer;
+  }
+}
