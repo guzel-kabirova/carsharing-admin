@@ -14,7 +14,7 @@ export class PaginationComponent {
   @Input()
   public firstPage = 1;
   @Input()
-  public totalPages = 31;
+  public totalPages = 0;
 
   private _activePage = this.firstPage;
 

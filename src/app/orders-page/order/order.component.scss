@@ -1,0 +1,85 @@
+.order {
+  display: flex;
+  align-items: center;
+  margin: 13px 0;
+  width: 100%;
+
+  &__picture {
+    width: 12%;
+  }
+
+  &__img {
+    width: 138px;
+    height: 63px;
+    background-color: var(--color-text-superlight);
+  }
+
+  &__info {
+    font: var(--text);
+    color: var(--color-text-description);
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  &__main {
+    color: var(--color-black);
+  }
+
+  &__extra {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 22%;
+  }
+
+  &__price {
+    font: var(--title);
+    color: var(--color-black);
+    width: 12%;
+  }
+
+  &__action {
+    width: 24%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__btns {
+    font: var(--interactive-text);
+    color: var(--color-text-main);
+    display: flex;
+    border: var(--border);
+    border-radius: var(--radius-btn);
+  }
+
+  &__btn {
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    &:not(:last-child) {
+      border-right: var(--border);
+    }
+  }
+
+  &__icon {
+    width: 12px;
+    height: 12px;
+    color: var(--color-text-main);
+  }
+}
+
+.done {
+  color: var(--color-main-accent);
+}
+
+.cancel {
+  color: var(--color-danger);
+}
+
+.edit {
+  color: var(--color-text-dark);
+}

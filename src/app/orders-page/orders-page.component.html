@@ -1,8 +1,19 @@
 <h2 class="page-name">Заказы</h2>
 <div class="orders">
-  <div class="orders__filters">filter</div>
-  <div class="orders__order">order</div>
+  <app-orders-filter></app-orders-filter>
+  <div class="orders__order">
+    <table class="orders__table">
+      <tbody>
+      <app-order carModel="ELANTRA"
+                 location="Ульяновск, Нариманова 42"
+                 rentDate="12.06.2019 12:00 — 13.06.2019 12:00"
+                 carColor="Голубой"
+                 price="4300"
+      ></app-order>
+      </tbody>
+    </table>
+  </div>
   <div class="orders__pagination">
-    <app-pagination></app-pagination>
+    <app-pagination [totalPages]="31"></app-pagination>
   </div>
 </div>

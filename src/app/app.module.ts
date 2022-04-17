@@ -15,6 +15,8 @@ import {OrdersPageComponent} from './orders-page/orders-page.component';
 import {PaginationModule} from './shared/components/pagination/pagination.module';
 import {AutoInfoComponent} from './auto-card-page/auto-info/auto-info.component';
 import {AutoSettingsComponent} from './auto-card-page/auto-settings/auto-settings.component';
+import {OrdersFilterComponent} from './orders-page/orders-filter/orders-filter.component';
+import {OrderComponent} from './orders-page/order/order.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import {AutoSettingsComponent} from './auto-card-page/auto-settings/auto-setting
     OrdersPageComponent,
     AutoInfoComponent,
     AutoSettingsComponent,
+    OrdersFilterComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,
