@@ -17,8 +17,6 @@
 
   tbody {
     th, td {
-      padding: 11px;
-
       &:first-child {
         color: var(--color-text);
         font: var(--table-header-vertical);
