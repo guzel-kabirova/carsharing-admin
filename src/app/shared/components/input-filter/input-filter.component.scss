@@ -9,6 +9,10 @@
   color: var(--color-text-description);
   font: var(--interactive-text);
 
+  @media (max-width: 1024px) {
+    width: 200px;
+  }
+
   &__hidden {
     border: none;
     width: 100%;

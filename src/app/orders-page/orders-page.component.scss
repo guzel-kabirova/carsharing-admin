@@ -2,7 +2,7 @@
   background-color: var(--color-white);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-main);
-  height: 386px;
+  height: calc(100vh - 260px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -11,6 +11,7 @@
     box-shadow: var(--shadow-card);
     height: 100%;
     padding: 0 21px;
+    overflow-y: auto;
   }
 
   &__table {
