@@ -1,8 +1,8 @@
 <h2 class="page-name">Заказы</h2>
-<div class="orders">
+<div class="content-card">
   <app-orders-filter></app-orders-filter>
-  <div class="orders__order">
-    <table class="orders__table">
+  <div class="content-card__wrapper">
+    <table class="content-card__table">
       <tbody>
       <app-order carModel="ELANTRA"
                  location="Ульяновск, Нариманова 42"
@@ -13,7 +13,7 @@
       </tbody>
     </table>
   </div>
-  <div class="orders__pagination">
+  <div class="content-card__pagination">
     <app-pagination [totalPages]="31"></app-pagination>
   </div>
 </div>

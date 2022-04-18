@@ -18,6 +18,7 @@ import {AutoSettingsComponent} from './auto-card-page/auto-settings/auto-setting
 import {OrdersFilterComponent} from './orders-page/orders-filter/orders-filter.component';
 import {OrderComponent} from './orders-page/order/order.component';
 import {InputFilterModule} from './shared/components/input-filter/input-filter.module';
+import {AutoListFilterComponent} from './auto-list-page/auto-list-filter/auto-list-filter.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {InputFilterModule} from './shared/components/input-filter/input-filter.m
     AutoSettingsComponent,
     OrdersFilterComponent,
     OrderComponent,
+    AutoListFilterComponent,
   ],
   imports: [
     BrowserModule,
