@@ -1,11 +1,17 @@
 <div class="header">
+  <div class="header__sidebar">
+    <svg class="icon__menu" icon="menu"></svg>
+  </div>
+
   <label class="header__search" for="search">
     <svg class="icon__search" icon="search"></svg>
     <input class="header__input" type="text" placeholder="Поиск..." id="search">
   </label>
+
   <div class="header__notification">
     <svg class="icon__notification" icon="notification"></svg>
   </div>
+
   <div class="header__person" (click)="exitModalOpen = ! exitModalOpen">
     <img class="header__avatar" src="assets/img/avatar.jpg" alt="avatar">
     <span class="header__name">Admin</span>

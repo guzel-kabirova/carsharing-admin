@@ -5,6 +5,18 @@
   color: var(--color-text-main);
   height: 68px;
 
+  &__sidebar {
+    display: none;
+
+    @media (max-width: 750px) {
+      padding: 14px;
+      border-right: var(--border);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
   &__search {
     padding: 26px 28px;
     display: flex;
@@ -12,8 +24,8 @@
     gap: 9px;
     flex-grow: 1;
 
-    @media (max-width: 400px) {
-      padding: 14px 14px 14px 28px;
+    @media (max-width: 750px) {
+      padding: 14px;
       gap: 4px;
     }
   }
@@ -45,12 +57,16 @@
 
     @media (max-width: 400px) {
       width: fit-content;
+      padding: 6px;
     }
   }
 
   &__avatar {
     border-radius: 50%;
     width: 42px;
+    @media (max-width: 750px) {
+      width: 24px;
+    }
   }
 
   &__name {
@@ -111,6 +127,11 @@
     width: 16px;
     height: 16px;
     color: var(--color-danger);
+  }
+
+  &__menu {
+    width: 16px;
+    height: 16px;
   }
 }
 
