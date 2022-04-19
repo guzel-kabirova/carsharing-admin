@@ -11,6 +11,11 @@
     align-items: center;
     gap: 9px;
     flex-grow: 1;
+
+    @media (max-width: 400px) {
+      padding: 14px 14px 14px 28px;
+      gap: 4px;
+    }
   }
 
   &__input {
@@ -23,6 +28,7 @@
     border-right: var(--border);
     border-left: var(--border);
     width: 68px;
+    padding: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,6 +42,10 @@
     width: 168px;
     padding: 14px 22px 14px 26px;
     cursor: pointer;
+
+    @media (max-width: 400px) {
+      width: fit-content;
+    }
   }
 
   &__avatar {
@@ -45,6 +55,10 @@
 
   &__name {
     font: var(--main-text);
+
+    @media (max-width: 400px) {
+      display: none;
+    }
   }
 
   &__exit {
@@ -61,6 +75,12 @@
     padding: 14px 22px;
     box-shadow: var(--shadow-header);
     cursor: pointer;
+    border-bottom-left-radius: var(--radius-btn);
+    border-bottom-right-radius: var(--radius-btn);
+
+    @media (max-width: 400px) {
+      width: fit-content;
+    }
   }
 }
 
@@ -81,6 +101,10 @@
   &__arrow {
     width: 9px;
     height: 5px;
+
+    @media (max-width: 400px) {
+      display: none;
+    }
   }
 
   &__exit {
