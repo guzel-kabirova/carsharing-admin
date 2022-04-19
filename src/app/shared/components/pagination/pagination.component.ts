@@ -35,7 +35,7 @@ export class PaginationComponent {
   }
 
   public get isFirstDots(): boolean {
-    return this.activePage > 3;
+    return this.activePage > this.firstPage + 2;
   }
 
   public get isLastDots(): boolean {
@@ -68,7 +68,7 @@ export class PaginationComponent {
         break;
       }
 
-      if (page === 0) {
+      if (page === this.firstPage - 1) {
         page++;
       }
 
