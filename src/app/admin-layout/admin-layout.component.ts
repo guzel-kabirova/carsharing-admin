@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ElementRef, Inject, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {takeUntil, tap} from 'rxjs/operators';
 import {BehaviorSubject, fromEvent, Observable} from 'rxjs';
@@ -17,7 +17,7 @@ import {SidebarComponent} from './components/sidebar/sidebar.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DestroyService],
 })
-export class AdminLayoutComponent {
+export class AdminLayoutComponent implements OnInit {
   @ViewChild(SidebarComponent, {read: ElementRef})
   private _sidebarElement?: ElementRef<HTMLElement>;
 
@@ -35,8 +35,7 @@ export class AdminLayoutComponent {
     private _router: Router,
   ) { }
 
-  openSidebar() {
-    this._isSidebar.next(true);
+  ngOnInit(): void {
     fromEvent(this._document, 'click').pipe(
       tap(event => {
         if (this._sidebarElement?.nativeElement.contains(event.target as Node) || this._headerElement?.nativeElement.contains(event.target as Node)) {
@@ -47,6 +46,10 @@ export class AdminLayoutComponent {
       takeUntil(this._destroy$),
     )
       .subscribe();
+  }
+
+  openSidebar() {
+    this._isSidebar.next(true);
   }
 
   private closeSidebar() {
