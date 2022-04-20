@@ -1,11 +1,14 @@
-import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {takeUntil, tap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, fromEvent, Observable} from 'rxjs';
+import {DOCUMENT} from '@angular/common';
 
 import {AuthService} from '../auth/services/auth.service';
 import {DestroyService} from '../shared/services/destroy.service';
 import {TokenService} from '../auth/services/token.service';
+import {HeaderComponent} from './components/header/header.component';
+import {SidebarComponent} from './components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-admin-layout',
@@ -15,12 +18,40 @@ import {TokenService} from '../auth/services/token.service';
   providers: [DestroyService],
 })
 export class AdminLayoutComponent {
+  @ViewChild(SidebarComponent, {read: ElementRef})
+  private _sidebarElement?: ElementRef<HTMLElement>;
+
+  @ViewChild(HeaderComponent, {read: ElementRef})
+  private _headerElement?: ElementRef<HTMLElement>;
+
+  private _isSidebar = new BehaviorSubject(false);
+  public isSidebar$ = this._isSidebar.asObservable();
+
   constructor(
     @Inject(DestroyService) private _destroy$: Observable<void>,
+    @Inject(DOCUMENT) private _document: Document,
     private _service: AuthService,
     private _tokenService: TokenService,
     private _router: Router,
   ) { }
+
+  openSidebar() {
+    this._isSidebar.next(true);
+    fromEvent(this._document, 'click').pipe(
+      tap(event => {
+        if (this._sidebarElement?.nativeElement.contains(event.target as Node) || this._headerElement?.nativeElement.contains(event.target as Node)) {
+          return;
+        }
+        this.closeSidebar();
+      }),
+      takeUntil(this._destroy$),
+    )
+      .subscribe();
+  }
+
+  private closeSidebar() {
+    this._isSidebar.next(false);
+  }
 
   logout() {
     this._service.logout()

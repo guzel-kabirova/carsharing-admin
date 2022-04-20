@@ -11,6 +11,8 @@ export class HeaderComponent {
 
   @Output()
   public clickedToExit = new EventEmitter<void>();
+  @Output()
+  public clickedToSidebar = new EventEmitter<void>();
 
   constructor() { }
 }
