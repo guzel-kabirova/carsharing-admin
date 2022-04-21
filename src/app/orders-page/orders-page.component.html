@@ -1,1 +1,19 @@
-<p>orders-page works!</p>
+<h2 class="page-name">Заказы</h2>
+<div class="content-card">
+  <app-orders-filter></app-orders-filter>
+  <div class="content-card__wrapper">
+    <table class="content-card__table">
+      <tbody>
+      <app-order carModel="ELANTRA"
+                 location="Ульяновск, Нариманова 42"
+                 rentDate="12.06.2019 12:00 — 13.06.2019 12:00"
+                 carColor="Голубой"
+                 price="4300"
+      ></app-order>
+      </tbody>
+    </table>
+  </div>
+  <div class="content-card__pagination">
+    <app-pagination [totalPages]="31"></app-pagination>
+  </div>
+</div>

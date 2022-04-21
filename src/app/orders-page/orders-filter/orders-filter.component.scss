@@ -1,0 +1,26 @@
+:host {
+  padding: 16px 21px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 1024px) {
+    align-items: flex-end;
+  }
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    gap: 30px;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}
+
+.filter {
+  display: flex;
+  gap: 15px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+}

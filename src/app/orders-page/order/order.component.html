@@ -1,0 +1,35 @@
+<tr class="order">
+  <td class="order__picture">
+    <div class="order__img"></div>
+  </td>
+  <td class="order__info">
+    <p><span class="order__main">{{carModel}} в {{location}}</span></p>
+    <p><span>{{rentDate}}</span></p>
+    <p><span>Цвет:</span><span class="order__main"> {{carColor}}</span></p>
+    <p class="order__price-adaptive"><span>Цена:</span><span class="order__main"> {{price}} ₽</span></p>
+  </td>
+  <td class="order__extra">
+    <app-checkbox idName="isFullTank" labelName="Полный бак"></app-checkbox>
+    <app-checkbox idName="isNeedChildChair" labelName="Детское кресло"></app-checkbox>
+    <app-checkbox idName="isRightWheel" labelName="Правый руль"></app-checkbox>
+  </td>
+  <td class="order__price">
+    {{price}} ₽
+  </td>
+  <td class="order__action">
+    <div class="order__btns">
+      <button class="order__btn">
+        <svg class="order__icon done" icon="order-done"></svg>
+        Готово
+      </button>
+      <button class="order__btn">
+        <svg class="order__icon cancel" icon="order-cancel"></svg>
+        Отмена
+      </button>
+      <button class="order__btn">
+        <svg class="order__icon edit" icon="order-edit"></svg>
+        Изменить
+      </button>
+    </div>
+  </td>
+</tr>

@@ -1,0 +1,26 @@
+.entities {
+  text-align: left;
+
+  &__header {
+    color: var(--color-text-dark);
+    font: var(--table-header-horizontal);
+  }
+
+  &__body {
+    color: var(--color-text-light);
+    font: var(--table-text);
+  }
+
+  th, td {
+    padding: 11px;
+  }
+
+  tbody {
+    th, td {
+      &:first-child {
+        color: var(--color-text);
+        font: var(--table-header-vertical);
+      }
+    }
+  }
+}
