@@ -1,0 +1,37 @@
+<div class="pagination">
+  <button class="pagination__prev"
+          [disabled]="!isPrevActive"
+          (click)="onArrowClick(buttonName.Prev)">
+    «
+  </button>
+
+  <div class="pagination__numbers">
+    <button class="pagination__page"
+            [class.pagination__page_active]="isActive(firstPage)"
+            (click)="setActivePage(firstPage)"
+            *ngIf="activePage > 2"
+    >{{firstPage}}
+    </button>
+
+    <button class="pagination__dots" *ngIf="isFirstDots">...</button>
+
+    <button class="pagination__page"
+            *ngFor="let page of pagesInterval"
+            [class.pagination__page_active]="isActive(page)"
+            (click)="setActivePage(page)"
+    >{{page}}</button>
+
+    <button class="pagination__dots" *ngIf="isLastDots">...</button>
+
+    <button class="pagination__page"
+            [class.pagination__page_active]="isActive(totalPages)"
+            (click)="setActivePage(totalPages)"
+            *ngIf="activePage < totalPages - 1"
+    >{{totalPages}}</button>
+  </div>
+
+  <button class="pagination__next"
+          [disabled]="!isNextActive"
+          (click)="onArrowClick(buttonName.Next)">»
+  </button>
+</div>

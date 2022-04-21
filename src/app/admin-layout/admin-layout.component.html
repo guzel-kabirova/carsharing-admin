@@ -4,7 +4,7 @@
   </div>
   <div class="container__content">
     <div class="container__header">
-      <app-header (clickedToExit)="logout()"></app-header>
+      <app-header (clickedToExit)="logout()" (clickedToSidebar)="openSidebar()"></app-header>
     </div>
 
     <div class="container__router">
@@ -15,4 +15,8 @@
       <app-footer></app-footer>
     </div>
   </div>
+</div>
+
+<div class="sidebar-wrapper" *ngIf="isSidebar$ | async">
+  <app-sidebar></app-sidebar>
 </div>

@@ -11,6 +11,8 @@ export class CheckboxComponent {
   public idName = '';
   @Input()
   public labelName = '';
+  @Input()
+  public isChecked = false;
 
   constructor() { }
 }
