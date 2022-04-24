@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {IFormInfo, IFormSettings} from './auto-card-page.interface';
-import {INITIAL_INFO, INITIAL_SETTINGS} from './auto-card-page.const';
+import {AutoCardPageStoreService} from './services/auto-card-page.store.service';
 
 @Component({
   selector: 'app-auto-card-page',
@@ -15,11 +15,7 @@ export class AutoCardPageComponent {
   private _percent = new BehaviorSubject<number>(0);
   public percent$ = this._percent.asObservable();
 
-  private _infoForm = new BehaviorSubject<IFormInfo>(INITIAL_INFO);
-
-  private _settingsForm = new BehaviorSubject<IFormSettings>(INITIAL_SETTINGS);
-
-  constructor() { }
+  constructor(private _autoStoreService: AutoCardPageStoreService) { }
 
   public handleSave() {
     console.log('saved');
@@ -34,27 +30,19 @@ export class AutoCardPageComponent {
   }
 
   public changeInfo(info: IFormInfo) {
-    this._infoForm.next(info);
+    this._autoStoreService.setInfoForm(info);
     this.setTotalPercent();
   }
 
   public changeSettings(settings: IFormSettings) {
-    this._settingsForm.next(settings);
+    this._autoStoreService.setSettingsForm(settings);
     this.setTotalPercent();
-  }
-
-  private getInfoValue(): IFormInfo {
-    return this._infoForm.getValue();
-  }
-
-  private getSettingsValue(): IFormSettings {
-    return this._settingsForm.getValue();
   }
 
   private setTotalPercent() {
     let percent = 0;
-    percent += this.getFilledInputPercent(this.getInfoValue());
-    percent += this.getFilledInputPercent(this.getSettingsValue());
+    percent += this.getFilledInputPercent(this._autoStoreService.getInfoValue());
+    percent += this.getFilledInputPercent(this._autoStoreService.getSettingsValue());
 
     this._percent.next(percent);
   }

@@ -8,6 +8,7 @@ import {ISelectedImg} from './auto-info.interface';
 import {ISelectedPicture} from '../../shared/components/input-file/input-file.interface';
 import {DestroyService} from '../../shared/services/destroy.service';
 import {IFormInfo} from '../auto-card-page.interface';
+import {AutoCardPageStoreService} from '../services/auto-card-page.store.service';
 
 @Component({
   selector: 'app-auto-info',
@@ -39,9 +40,12 @@ export class AutoInfoComponent implements OnInit {
     description: '',
   });
 
+  public settingsForm$ = this._autoStoreService.settingsForm$;
+
   constructor(
     @Inject(DestroyService) private _destroy$: Observable<void>,
     private _fb: FormBuilder,
+    private _autoStoreService: AutoCardPageStoreService,
   ) { }
 
   ngOnInit(): void {
