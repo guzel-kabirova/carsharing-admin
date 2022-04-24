@@ -24,7 +24,7 @@ export class AutoCardPageStoreService {
   }
 
   public setSettingsForm(settings: IFormSettings) {
-    this._settingsForm.next(settings);
+    this._settingsForm.next({name: settings.name, colors: settings.colors, category: settings.category});
   }
 
 }

@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
+
 import {IFormInfo, IFormSettings} from './auto-card-page.interface';
 import {AutoCardPageStoreService} from './services/auto-card-page.store.service';
 
@@ -47,7 +48,7 @@ export class AutoCardPageComponent {
     this._percent.next(percent);
   }
 
-  private getFilledInputPercent(object: Object): number {
-    return Object.values(object).filter(Boolean).length * this._oneFilledInputInPercent;
+  private getFilledInputPercent(object: object): number {
+    return Object.values(object).filter(value => value.length !== 0).length * this._oneFilledInputInPercent;
   }
 }

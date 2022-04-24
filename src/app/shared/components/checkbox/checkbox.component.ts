@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-checkbox',
@@ -13,6 +13,9 @@ export class CheckboxComponent {
   public labelName = '';
   @Input()
   public isChecked = false;
+
+  @Output()
+  changeCheckbox = new EventEmitter<string>();
 
   constructor() { }
 }

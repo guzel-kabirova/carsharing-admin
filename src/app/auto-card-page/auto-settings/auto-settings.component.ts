@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {debounceTime, takeUntil, tap} from 'rxjs/operators';
 
@@ -35,14 +35,10 @@ export class AutoSettingsComponent implements OnInit {
   }
 
   public get isColorsInvalid(): boolean {
-    return this.form.get('colors')?.touched && this.form.get('colors')?.errors?.required;
+    return Boolean(this.form.get('color')?.touched && (this.form.get('colors')?.value.length === 0));
   }
 
-  public form = this._fb.group({
-    name: ['', Validators.required],
-    category: ['', Validators.required],
-    colors: ['', Validators.required],
-  });
+  public form!: FormGroup;
 
   constructor(
     @Inject(DestroyService) private _destroy$: Observable<void>,
@@ -50,10 +46,36 @@ export class AutoSettingsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.createForm();
     this.form.valueChanges.pipe(
       debounceTime(500),
       tap(() => this.formChanged.emit(this.form.value)),
       takeUntil(this._destroy$))
       .subscribe();
+  }
+
+  private createForm() {
+    const colors = this._fb.array([]);
+
+    this.form = this._fb.group({
+      name: ['', Validators.required],
+      category: ['', Validators.required],
+      color: [''],
+      colors,
+    });
+  }
+
+  addColor() {
+    const color = this.form.get('color')?.value.trim();
+
+    if (!!color) {
+      const control = new FormControl(color);
+      (this.form.get('colors') as FormArray).push(control);
+      this.form.patchValue({color: ''});
+    }
+  }
+
+  deleteColor(i: number) {
+    (this.form.get('colors') as FormArray).removeAt(i);
   }
 }
