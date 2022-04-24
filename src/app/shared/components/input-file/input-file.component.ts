@@ -1,6 +1,7 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
 
 import {regex} from '../../../regex';
+import {ISelectedPicture} from './input-file.interface';
 
 @Component({
   selector: 'app-input-file',
@@ -9,15 +10,25 @@ import {regex} from '../../../regex';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputFileComponent {
-  public picturePath = '';
+  @Output()
+  pictureSelected = new EventEmitter<ISelectedPicture>();
 
-  get pictureName(): string {
-    const nameArr = this.picturePath.match(regex.fileName);
-    if (nameArr) {
-      return nameArr[1];
-    }
-    return 'Выберите файл...';
-  }
+  public picturePath = 'Выберите файл...';
 
   constructor() { }
+
+  changeFile(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const fileList = (input.files as FileList);
+    const fileName = fileList.length ? fileList[0].name : '';
+    const matchedArr = fileName.match(regex.fileName);
+
+    if (matchedArr) {
+      this.picturePath = matchedArr[1];
+      this.pictureSelected.emit({
+        file: fileList,
+        path: fileName,
+      });
+    }
+  }
 }

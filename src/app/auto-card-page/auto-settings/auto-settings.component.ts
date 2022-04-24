@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-auto-settings',
@@ -7,5 +8,20 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutoSettingsComponent {
-  constructor() { }
+  @Output()
+  public saved = new EventEmitter<void>();
+
+  @Output()
+  public canceled = new EventEmitter<void>();
+
+  @Output()
+  public deleted = new EventEmitter<void>();
+
+  public form = this._fb.group({
+    name: '',
+    category: '',
+    colors: '',
+  });
+
+  constructor(private _fb: FormBuilder) { }
 }

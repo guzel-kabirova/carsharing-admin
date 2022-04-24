@@ -9,4 +9,16 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 export class AutoCardPageComponent {
 
   constructor() { }
+
+  public handleSave() {
+    console.log('saved');
+  }
+
+  handleCancel() {
+    console.log('cancel');
+  }
+
+  handleDelete() {
+    console.log('delete');
+  }
 }

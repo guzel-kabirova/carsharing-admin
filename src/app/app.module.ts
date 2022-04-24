@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
+import {ReactiveFormsModule} from '@angular/forms';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -42,6 +43,7 @@ import {AutoListFilterComponent} from './auto-list-page/auto-list-filter/auto-li
     ButtonModule,
     PaginationModule,
     InputFilterModule,
+    ReactiveFormsModule,
   ],
   providers: [ICONS_PROVIDER],
   bootstrap: [AppComponent],

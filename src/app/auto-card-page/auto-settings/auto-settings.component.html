@@ -1,17 +1,17 @@
 <div class="settings">
-  <div class="settings__content">
+  <form class="settings__content" [formGroup]="form">
     <h3 class="settings__title">Настройки автомобиля</h3>
 
     <div class="settings__first-line">
       <div class="field">
         <label for="model" app-label>Модель автомобиля</label>
-        <input id="model" app-input value="Hyndai, i30 N">
+        <input id="model" app-input formControlName="name" placeholder="Введите модель авто...">
       </div>
 
       <div class="field">
-        <label for="type" app-label>Тип автомобиля</label>
-        <input id="type" app-input value="Компакт-кар" [invalid]="true">
-        <app-error>Пример ошибки</app-error>
+        <label for="type" app-label>Категория автомобиля</label>
+        <input id="type" app-input formControlName="category" placeholder="Введите категорию авто...">
+        <!--        <app-error>Пример ошибки</app-error>-->
       </div>
     </div>
 
@@ -19,7 +19,8 @@
     <div class="field">
       <label for="color" app-label>Доступные цвета</label>
       <div class="field__color">
-        <input id="color" class="field__input" app-input value="Синий">
+        <input id="color" class="field__input" app-input formControlName="colors"
+               placeholder="Введите доступные цвета...">
         <div class="field__add">
           <svg class="icon" icon="add"></svg>
         </div>
@@ -27,18 +28,18 @@
     </div>
 
 
-    <div class="settings__checkboxes">
+    <div class="settings__checkboxes" *ngIf="form.get('colors')?.value">
       <app-checkbox idName="red" labelName="Красный"></app-checkbox>
       <app-checkbox idName="white" labelName="Белый"></app-checkbox>
       <app-checkbox idName="black" labelName="Черный"></app-checkbox>
     </div>
-  </div>
+  </form>
 
   <div class="settings__action">
     <div class="settings__left-btns">
-      <button app-button>Сохранить</button>
-      <button app-button class="settings__action_cancel">Отменить</button>
+      <button app-button (click)="saved.emit()">Сохранить</button>
+      <button app-button class="settings__action_cancel" (click)="canceled.emit()">Отменить</button>
     </div>
-    <button app-button class="settings__action_delete">Удалить</button>
+    <button app-button class="settings__action_delete" (click)="deleted.emit()">Удалить</button>
   </div>
 </div>

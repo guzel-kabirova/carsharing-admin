@@ -1,5 +1,5 @@
 <label class="input-file" for="file">
-  <span class="input-file__placeholder">{{pictureName}}</span>
-  <input class="input-file__modern" type="file" id="file" [(ngModel)]="picturePath">
+  <span class="input-file__placeholder">{{picturePath}}</span>
+  <input class="input-file__modern" type="file" id="file" (change)="changeFile($event)">
   <span class="input-file__btn">Обзор</span>
 </label>

@@ -6,7 +6,11 @@
     </div>
 
     <div class="card__settings">
-      <app-auto-settings></app-auto-settings>
+      <app-auto-settings
+        (saved)="handleSave()"
+        (canceled)="handleCancel()"
+        (deleted)="handleDelete()"
+      ></app-auto-settings>
     </div>
   </div>
 </div>

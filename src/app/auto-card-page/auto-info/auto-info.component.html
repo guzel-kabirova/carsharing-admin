@@ -1,23 +1,24 @@
-<div class="info">
-  <div class="info__picture"></div>
-  <h3 class="info__title">Hyndai, i30 N</h3>
-  <h4 class="info__subtitle">Компакт-кар</h4>
-  <app-input-file></app-input-file>
-</div>
-
-<div class="progress">
-  <div class="progress__info">
-    <span class="progress__title">Заполнено</span>
-    <span class="progress__subtitle">74%</span>
+<form [formGroup]="form">
+  <div class="info">
+    <img class="info__picture" *ngIf="picture$ | async as picture" [src]="picture.src" [alt]="picture.alt">
+    <h3 class="info__title">Модель</h3>
+    <h4 class="info__subtitle">Категория</h4>
+    <app-input-file (pictureSelected)="handlePictureSelect($event)"></app-input-file>
   </div>
-  <div class="progress__scale">
-    <div class="progress__scale_done"></div>
-  </div>
-</div>
 
-<div class="description">
-  <h4 class="description__title">Описание</h4>
-  <p class="description__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi
-    soluta qui quae quod
-    dolorum sint alias, possimus illum assumenda eligendi cumque?</p>
-</div>
+  <div class="progress">
+    <div class="progress__info">
+      <span class="progress__title">Заполнено</span>
+      <span class="progress__subtitle">{{percent}}%</span>
+    </div>
+    <div class="progress__scale">
+      <div class="progress__scale_done" [style.width.%]="percent"></div>
+    </div>
+  </div>
+
+  <div class="description">
+    <label for="description" class="description__title">Описание</label>
+    <textarea id="description" class="description__textarea" formControlName="description"
+              placeholder="Введите пару слов о машине..."></textarea>
+  </div>
+</form>
