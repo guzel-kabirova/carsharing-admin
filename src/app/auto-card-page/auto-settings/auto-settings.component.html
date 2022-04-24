@@ -5,13 +5,18 @@
     <div class="settings__first-line">
       <div class="field">
         <label for="model" app-label>Модель автомобиля</label>
-        <input id="model" app-input formControlName="name" placeholder="Введите модель авто...">
+        <input id="model" app-input formControlName="name"
+               placeholder="Введите модель авто..."
+               [invalid]="isNameInvalid">
+        <app-error *ngIf="isNameInvalid">Обязательно для заполнения!</app-error>
       </div>
 
       <div class="field">
         <label for="type" app-label>Категория автомобиля</label>
-        <input id="type" app-input formControlName="category" placeholder="Введите категорию авто...">
-        <!--        <app-error>Пример ошибки</app-error>-->
+        <input id="type" app-input formControlName="category"
+               placeholder="Введите категорию авто..."
+               [invalid]="isCategoryInvalid">
+        <app-error *ngIf="isCategoryInvalid">Обязательно для заполнения!</app-error>
       </div>
     </div>
 
@@ -20,13 +25,15 @@
       <label for="color" app-label>Доступные цвета</label>
       <div class="field__color">
         <input id="color" class="field__input" app-input formControlName="colors"
-               placeholder="Введите доступные цвета...">
+               placeholder="Введите доступные цвета..."
+               [invalid]="isColorsInvalid"
+        >
         <div class="field__add">
           <svg class="icon" icon="add"></svg>
         </div>
       </div>
+      <app-error *ngIf="isColorsInvalid">Обязательно для заполнения!</app-error>
     </div>
-
 
     <div class="settings__checkboxes" *ngIf="form.get('colors')?.value">
       <app-checkbox idName="red" labelName="Красный"></app-checkbox>

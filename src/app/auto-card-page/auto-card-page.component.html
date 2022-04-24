@@ -2,11 +2,15 @@
   <h2 class="page-name">Карточка автомобиля</h2>
   <div class="card__content">
     <div class="card__info">
-      <app-auto-info></app-auto-info>
+      <app-auto-info
+        [percent]="percent$ | async"
+        (formChanged)="changeInfo($event)">
+      </app-auto-info>
     </div>
 
     <div class="card__settings">
       <app-auto-settings
+        (formChanged)="changeSettings($event)"
         (saved)="handleSave()"
         (canceled)="handleCancel()"
         (deleted)="handleDelete()"
