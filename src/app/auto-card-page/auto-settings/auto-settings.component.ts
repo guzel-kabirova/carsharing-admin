@@ -1,10 +1,11 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {debounceTime, takeUntil, tap} from 'rxjs/operators';
+import {debounceTime, first, takeUntil, tap} from 'rxjs/operators';
 
-import {IFormSettings} from '../auto-card-page.interface';
+import {ICategory, IFormSettings} from '../auto-card-page.interface';
 import {DestroyService} from '../../shared/services/destroy.service';
+import {AutoCardPageFacadeService} from '../services/auto-card-page.facade.service';
 
 @Component({
   selector: 'app-auto-settings',
@@ -38,14 +39,27 @@ export class AutoSettingsComponent implements OnInit {
     return Boolean(this.form.get('color')?.touched && (this.form.get('colors')?.value.length === 0));
   }
 
+  public get isPriceMinInvalid(): boolean {
+    return this.form.get('priceMin')?.touched && this.form.get('priceMin')?.errors?.required;
+  }
+
+  public get isPriceMaxInvalid(): boolean {
+    return this.form.get('priceMax')?.touched && this.form.get('priceMax')?.errors?.required;
+  }
+
   public form!: FormGroup;
+
+  public categories: ICategory[] = [];
+  public isCategoriesLoading = false;
 
   constructor(
     @Inject(DestroyService) private _destroy$: Observable<void>,
     private _fb: FormBuilder,
+    private _facade: AutoCardPageFacadeService,
   ) { }
 
   ngOnInit(): void {
+    this.setCategories();
     this.createForm();
     this.form.valueChanges.pipe(
       debounceTime(500),
@@ -54,12 +68,25 @@ export class AutoSettingsComponent implements OnInit {
       .subscribe();
   }
 
+  private setCategories() {
+    this.isCategoriesLoading = true;
+    this._facade.api.getCategories().pipe(
+      first(),
+      tap(() => {
+        this.categories = this._facade.store.getCategories();
+        this.isCategoriesLoading = false;
+      }),
+    ).subscribe();
+  }
+
   private createForm() {
     const colors = this._fb.array([]);
 
     this.form = this._fb.group({
       name: ['', Validators.required],
       category: ['', Validators.required],
+      priceMin: ['', Validators.required],
+      priceMax: ['', Validators.required],
       color: [''],
       colors,
     });

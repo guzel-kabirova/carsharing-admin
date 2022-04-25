@@ -23,10 +23,10 @@ export class AppInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let headers;
-    if (req.url.includes('logout')) {
-      headers = this.getHeaders(environment.appId, this.getBearerToken());
-    } else {
+    if (req.url.includes('login')) {
       headers = this.getHeaders(environment.appId, this.getBasicToke());
+    } else {
+      headers = this.getHeaders(environment.appId, this.getBearerToken());
     }
 
     const cloned = req.clone({headers});

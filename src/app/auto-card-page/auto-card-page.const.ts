@@ -6,7 +6,10 @@ export const INITIAL_INFO: IFormInfo = {
 };
 
 export const INITIAL_SETTINGS: IFormSettings = {
+  priceMin: 0,
+  priceMax: 0,
+  categoryId: '',
   name: '',
   category: '',
-  colors: '',
+  colors: [],
 };

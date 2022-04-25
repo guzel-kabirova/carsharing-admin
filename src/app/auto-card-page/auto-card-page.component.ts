@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 
-import {IFormInfo, IFormSettings} from './auto-card-page.interface';
-import {AutoCardPageStoreService} from './services/auto-card-page.store.service';
+import {ICarDto, IFormInfo, IFormSettings} from './auto-card-page.interface';
+import {AutoCardPageFacadeService} from './services/auto-card-page.facade.service';
 
 @Component({
   selector: 'app-auto-card-page',
@@ -11,15 +11,32 @@ import {AutoCardPageStoreService} from './services/auto-card-page.store.service'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutoCardPageComponent {
-  private _oneFilledInputInPercent = 20;
+  private _oneFilledInputInPercent = 14.3;
 
   private _percent = new BehaviorSubject<number>(0);
   public percent$ = this._percent.asObservable();
 
-  constructor(private _autoStoreService: AutoCardPageStoreService) { }
+  constructor(private _facade: AutoCardPageFacadeService) { }
 
   public handleSave() {
-    console.log('saved');
+    if (this._percent.getValue() === 100) {
+      const info = this._facade.store.getInfoValue();
+      const settings = this._facade.store.getSettingsValue();
+
+      const car: ICarDto = {
+        name: settings.name,
+        colors: settings.colors,
+        categoryId: 5,
+        description: info.description,
+        priceMax: 500,
+        priceMin: 0,
+        thumbnail: {
+          path: info.url,
+        },
+      };
+
+      this._facade.api.setNewCar(car).subscribe();
+    }
   }
 
   public handleCancel() {
@@ -31,24 +48,25 @@ export class AutoCardPageComponent {
   }
 
   public changeInfo(info: IFormInfo) {
-    this._autoStoreService.setInfoForm(info);
+    this._facade.store.setInfoForm(info);
     this.setTotalPercent();
   }
 
   public changeSettings(settings: IFormSettings) {
-    this._autoStoreService.setSettingsForm(settings);
+    this._facade.store.setSettingsForm(settings);
     this.setTotalPercent();
   }
 
   private setTotalPercent() {
     let percent = 0;
-    percent += this.getFilledInputPercent(this._autoStoreService.getInfoValue());
-    percent += this.getFilledInputPercent(this._autoStoreService.getSettingsValue());
+    percent += this.getFilledInputPercent(this._facade.store.getInfoValue());
+    percent += this.getFilledInputPercent(this._facade.store.getSettingsValue());
 
+    percent = Math.min(percent, 100);
     this._percent.next(percent);
   }
 
   private getFilledInputPercent(object: object): number {
-    return Object.values(object).filter(value => value.length !== 0).length * this._oneFilledInputInPercent;
+    return Object.values(object).filter(value => value !== 0 && value.length !== 0).length * this._oneFilledInputInPercent;
   }
 }

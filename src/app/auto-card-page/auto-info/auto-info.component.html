@@ -9,7 +9,7 @@
   <div class="progress">
     <div class="progress__info">
       <span class="progress__title">Заполнено</span>
-      <span class="progress__subtitle">{{percent}}%</span>
+      <span class="progress__subtitle">{{percent | number: '.0-2'}}%</span>
     </div>
     <div class="progress__scale">
       <div class="progress__scale_done" [style.width.%]="percent"></div>

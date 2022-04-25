@@ -1,10 +1,3 @@
-export interface IThumbnail {
-  mimetype: string;
-  originalname: string;
-  path: string;
-  size: number;
-}
-
 export interface IFormInfo {
   url: string;
   description: string;
@@ -13,5 +6,33 @@ export interface IFormInfo {
 export interface IFormSettings {
   name: string;
   category: string;
-  colors: string;
+  colors: string[];
+  priceMin: number;
+  priceMax: number;
+  categoryId: string;
+  color?: string;
+}
+
+
+export interface ICarDto {
+  categoryId: number;
+  thumbnail: IThumbnail;
+  name: string;
+  priceMin: number;
+  priceMax: number;
+  colors: string[];
+  description: string;
+}
+
+export interface IThumbnail {
+  // mimetype: string;
+  // originalname: string;
+  path: string;
+  // size: number;
+}
+
+
+export interface ICategory {
+  id: string;
+  name: string;
 }
