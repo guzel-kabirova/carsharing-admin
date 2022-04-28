@@ -6,10 +6,9 @@ export const INITIAL_INFO: IFormInfo = {
 };
 
 export const INITIAL_SETTINGS: IFormSettings = {
-  priceMin: 0,
-  priceMax: 0,
-  categoryId: '',
+  priceMin: NaN,
+  priceMax: NaN,
+  categoryId: null,
   name: '',
-  category: '',
   colors: [],
 };

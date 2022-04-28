@@ -8,7 +8,7 @@ import {ISelectedImg} from './auto-info.interface';
 import {ISelectedPicture} from '../../shared/components/input-file/input-file.interface';
 import {DestroyService} from '../../shared/services/destroy.service';
 import {IFormInfo} from '../auto-card-page.interface';
-import {AutoCardPageStoreService} from '../services/auto-card-page.store.service';
+import {AutoCardPageFacadeService} from '../services/auto-card-page.facade.service';
 
 @Component({
   selector: 'app-auto-info',
@@ -30,7 +30,7 @@ export class AutoInfoComponent implements OnInit {
   }
 
   @Output()
-  formChanged = new EventEmitter<IFormInfo>();
+  public formChanged = new EventEmitter<IFormInfo>();
 
   private _picture = new BehaviorSubject<ISelectedImg>(NO_PICTURE);
   public picture$ = this._picture.asObservable();
@@ -40,12 +40,12 @@ export class AutoInfoComponent implements OnInit {
     description: '',
   });
 
-  public settingsForm$ = this._autoStoreService.settingsForm$;
+  public settingsForm$ = this._facade.store.settingsForm$;
 
   constructor(
     @Inject(DestroyService) private _destroy$: Observable<void>,
     private _fb: FormBuilder,
-    private _autoStoreService: AutoCardPageStoreService,
+    private _facade: AutoCardPageFacadeService,
   ) { }
 
   ngOnInit(): void {
@@ -57,7 +57,7 @@ export class AutoInfoComponent implements OnInit {
       .subscribe();
   }
 
-  handlePictureSelect(picture: ISelectedPicture) {
+  public handlePictureSelect(picture: ISelectedPicture) {
     const reader = new FileReader();
     reader.readAsDataURL(picture.file[0]);
     reader.onload = (event: ProgressEvent<FileReader>) => {

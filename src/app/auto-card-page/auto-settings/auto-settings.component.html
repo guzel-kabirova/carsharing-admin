@@ -18,8 +18,8 @@
                 name="category"
                 [invalid]="isCategoryInvalid"
         >
-          <option value="">{{isCategoriesLoading ? 'Загрузка...' : 'Введите категорию авто...'}}</option>
-          <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+          <option value="">Выберите категорию авто...</option>
+          <option *ngFor="let category of categories$ | async" [value]="category.id">{{category.name}}</option>
         </select>
         <app-error *ngIf="isCategoryInvalid">Обязательно для заполнения!</app-error>
       </div>
@@ -34,8 +34,9 @@
                  type="number"
                  step="10"
                  autocomplete="off"
-                 [invalid]="isPriceMinInvalid">
-          <app-error *ngIf="isPriceMinInvalid">Обязательно для заполнения!</app-error>
+                 [invalid]="isPriceMin || isPriceMinMinimum">
+          <app-error *ngIf="isPriceMin">Обязательно для заполнения!</app-error>
+          <app-error *ngIf="isPriceMinMinimum">Цена не может быть меньше нуля!</app-error>
         </div>
 
         <div class="field">
@@ -45,8 +46,9 @@
                  type="number"
                  step="10"
                  autocomplete="off"
-                 [invalid]="isPriceMaxInvalid">
-          <app-error *ngIf="isPriceMaxInvalid">Обязательно для заполнения!</app-error>
+                 [invalid]="isPriceMax || isPriceMaxMinimum">
+          <app-error *ngIf="isPriceMax">Обязательно для заполнения!</app-error>
+          <app-error *ngIf="isPriceMaxMinimum">Цена не может быть меньше нуля!</app-error>
         </div>
       </div>
 
@@ -81,7 +83,8 @@
 
   <div class="settings__action">
     <div class="settings__left-btns">
-      <button app-button (click)="saved.emit()">Сохранить</button>
+      <button app-button class="settings__action_save" (click)="saved.emit()" [disabled]="!isFormFull">Сохранить
+      </button>
       <button app-button class="settings__action_cancel" (click)="canceled.emit()">Отменить</button>
     </div>
     <button app-button class="settings__action_delete" (click)="deleted.emit()">Удалить</button>

@@ -5,17 +5,14 @@ export interface IFormInfo {
 
 export interface IFormSettings {
   name: string;
-  category: string;
   colors: string[];
   priceMin: number;
   priceMax: number;
-  categoryId: string;
-  color?: string;
+  categoryId: ICategory | null;
 }
 
-
 export interface ICarDto {
-  categoryId: number;
+  categoryId: ICategory | null;
   thumbnail: IThumbnail;
   name: string;
   priceMin: number;
@@ -30,7 +27,6 @@ export interface IThumbnail {
   path: string;
   // size: number;
 }
-
 
 export interface ICategory {
   id: string;
