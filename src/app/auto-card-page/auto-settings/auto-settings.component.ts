@@ -83,13 +83,15 @@ export class AutoSettingsComponent implements OnInit {
   }
 
   private createForm() {
-    const colors = this._fb.array([]);
+    const defaultSettings = this._facade.store.getSettingsValue();
+    const colorsControls = defaultSettings.colors.map(color => new FormControl(color));
+    const colors = this._fb.array(colorsControls);
 
     this.form = this._fb.group({
-      name: ['', Validators.required],
-      category: ['', Validators.required],
-      priceMin: ['', [Validators.required, Validators.min(0)]],
-      priceMax: ['', [Validators.required, Validators.min(0)]],
+      name: [defaultSettings.name, Validators.required],
+      category: [defaultSettings.categoryId, Validators.required],
+      priceMin: [defaultSettings.priceMin, [Validators.required, Validators.min(0)]],
+      priceMax: [defaultSettings.priceMax, [Validators.required, Validators.min(0)]],
       color: [''],
       colors,
     });
@@ -100,6 +102,7 @@ export class AutoSettingsComponent implements OnInit {
       debounceTime(500),
       tap(() => {
         this.formChanged.emit(this.createDataToEmit());
+        console.log(this.form.get('colors'));
       }),
       takeUntil(this._destroy$))
       .subscribe();

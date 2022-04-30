@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {debounceTime, takeUntil, tap} from 'rxjs/operators';
 
@@ -35,10 +35,7 @@ export class AutoInfoComponent implements OnInit {
   private _picture = new BehaviorSubject<ISelectedImg>(NO_PICTURE);
   public picture$ = this._picture.asObservable();
 
-  public form = this._fb.group({
-    url: '',
-    description: '',
-  });
+  public form!: FormGroup;
 
   public settingsForm$ = this._facade.store.settingsForm$;
 
@@ -49,6 +46,19 @@ export class AutoInfoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.createForm();
+    this.createFormChangeSubscription();
+  }
+
+  private createForm() {
+    const defaultInfo = this._facade.store.getInfoValue();
+    this.form = this._fb.group({
+      url: defaultInfo.url,
+      description: defaultInfo.description,
+    });
+  }
+
+  private createFormChangeSubscription() {
     this.form.valueChanges.pipe(
       debounceTime(500),
       tap(() => this.formChanged.emit(this.form.value)),

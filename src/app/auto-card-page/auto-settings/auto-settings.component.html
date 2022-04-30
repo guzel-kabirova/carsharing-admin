@@ -18,7 +18,7 @@
                 name="category"
                 [invalid]="isCategoryInvalid"
         >
-          <option value="">Выберите категорию авто...</option>
+          <option [value]="null">Выберите категорию авто...</option>
           <option *ngFor="let category of categories$ | async" [value]="category.id">{{category.name}}</option>
         </select>
         <app-error *ngIf="isCategoryInvalid">Обязательно для заполнения!</app-error>
