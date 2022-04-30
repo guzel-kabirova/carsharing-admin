@@ -1,13 +1,17 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
+import {Observable} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 import {ICarDto, IFormInfo, IFormSettings} from './auto-card-page.interface';
 import {AutoCardPageFacadeService} from './services/auto-card-page.facade.service';
+import {DestroyService} from '../shared/services/destroy.service';
 
 @Component({
   selector: 'app-auto-card-page',
   templateUrl: './auto-card-page.component.html',
   styleUrls: ['./auto-card-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DestroyService],
 })
 export class AutoCardPageComponent {
   public percent$ = this._facade.store.percent$;
@@ -16,12 +20,16 @@ export class AutoCardPageComponent {
     return this._facade.store.getPercent() === 100;
   }
 
-  constructor(private _facade: AutoCardPageFacadeService) { }
+  constructor(
+    @Inject(DestroyService) private _destroy$: Observable<void>,
+    private _facade: AutoCardPageFacadeService,
+  ) { }
 
   public handleSave() {
     if (this.isFormFull) {
       const info = this._facade.store.getInfoValue();
       const settings = this._facade.store.getSettingsValue();
+      const thumbnail = this._facade.store.getThumbnail();
 
       const car: ICarDto = {
         name: settings.name,
@@ -30,12 +38,10 @@ export class AutoCardPageComponent {
         description: info.description,
         priceMax: settings.priceMax,
         priceMin: settings.priceMin,
-        thumbnail: {
-          path: info.url,
-        },
+        thumbnail,
       };
 
-      this._facade.api.setNewCar(car).subscribe();
+      this._facade.api.setNewCar(car).pipe(takeUntil(this._destroy$)).subscribe();
     }
   }
 

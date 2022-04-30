@@ -22,10 +22,10 @@ export interface ICarDto {
 }
 
 export interface IThumbnail {
-  // mimetype: string;
-  // originalname: string;
+  mimetype: string;
+  originalname: string;
   path: string;
-  // size: number;
+  size: number;
 }
 
 export interface ICategory {

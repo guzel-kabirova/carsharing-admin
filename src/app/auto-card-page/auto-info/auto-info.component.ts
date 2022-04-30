@@ -59,13 +59,21 @@ export class AutoInfoComponent implements OnInit {
 
   public handlePictureSelect(picture: ISelectedPicture) {
     const reader = new FileReader();
-    reader.readAsDataURL(picture.file[0]);
+    const file = picture.file[0];
+    reader.readAsDataURL(file);
     reader.onload = (event: ProgressEvent<FileReader>) => {
       const url = event.target?.result as string ?? '';
       this.form.patchValue({url});
       this._picture.next({
         src: url,
         alt: picture.path,
+      });
+
+      this._facade.store.setThumbnail({
+        size: file.size,
+        mimetype: file.type,
+        originalname: file.name,
+        path: url,
       });
     };
   }
