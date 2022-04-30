@@ -78,13 +78,8 @@ export class AutoSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.form.valueChanges.pipe(
-      debounceTime(500),
-      tap(() => {
-        this.formChanged.emit(this.createDataToEmit());
-      }),
-      takeUntil(this._destroy$))
-      .subscribe();
+    this.createFormChangeSubscription();
+    this.addPriceMaxValidationSubscription();
   }
 
   private createForm() {
@@ -98,6 +93,27 @@ export class AutoSettingsComponent implements OnInit {
       color: [''],
       colors,
     });
+  }
+
+  private createFormChangeSubscription() {
+    this.form.valueChanges.pipe(
+      debounceTime(500),
+      tap(() => {
+        this.formChanged.emit(this.createDataToEmit());
+      }),
+      takeUntil(this._destroy$))
+      .subscribe();
+  }
+
+  private addPriceMaxValidationSubscription() {
+    this.form.get('priceMin')?.valueChanges.pipe(
+      tap(priceMin => {
+        this.form.get('priceMax')?.addValidators(Validators.min(priceMin));
+        this.form.get('priceMax')?.updateValueAndValidity();
+      }),
+      takeUntil(this._destroy$),
+    )
+      .subscribe();
   }
 
   private createDataToEmit(): IFormSettings {

@@ -48,7 +48,7 @@
                  autocomplete="off"
                  [invalid]="isPriceMax || isPriceMaxMinimum">
           <app-error *ngIf="isPriceMax">Обязательно для заполнения!</app-error>
-          <app-error *ngIf="isPriceMaxMinimum">Цена не может быть меньше нуля!</app-error>
+          <app-error *ngIf="isPriceMaxMinimum">Цена не может быть меньше нуля и меньше минимальной цены!</app-error>
         </div>
       </div>
 
