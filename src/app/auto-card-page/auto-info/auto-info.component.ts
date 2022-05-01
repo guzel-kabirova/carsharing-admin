@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {debounceTime, takeUntil, tap} from 'rxjs/operators';
@@ -9,6 +18,7 @@ import {ISelectedPicture} from '../../shared/components/input-file/input-file.in
 import {DestroyService} from '../../shared/services/destroy.service';
 import {IFormInfo} from '../auto-card-page.interface';
 import {AutoCardPageFacadeService} from '../services/auto-card-page.facade.service';
+import {InputFileComponent} from '../../shared/components/input-file/input-file.component';
 
 @Component({
   selector: 'app-auto-info',
@@ -28,6 +38,8 @@ export class AutoInfoComponent implements OnInit {
   public get percent(): number {
     return this._percent;
   }
+
+  @ViewChild(InputFileComponent) inputFileComponent?: InputFileComponent;
 
   @Output()
   public formChanged = new EventEmitter<IFormInfo>();
@@ -91,11 +103,14 @@ export class AutoInfoComponent implements OnInit {
 
   private clearFormSubscription() {
     this._facade.resetAutoCardForms$.pipe(
-      tap(() => {
-        this.form.reset();
-        this._picture.next(NO_PICTURE);
-      }),
+      tap(() => this.clearForm()),
       takeUntil(this._destroy$),
     ).subscribe();
+  }
+
+  private clearForm() {
+    this.form.reset();
+    this._picture.next(NO_PICTURE);
+    this.inputFileComponent?.clearInput();
   }
 }
