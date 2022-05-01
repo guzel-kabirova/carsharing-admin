@@ -5,6 +5,7 @@ import {takeUntil} from 'rxjs/operators';
 import {ICarDto, IFormInfo, IFormSettings} from './auto-card-page.interface';
 import {AutoCardPageFacadeService} from './services/auto-card-page.facade.service';
 import {DestroyService} from '../shared/services/destroy.service';
+import {INITIAL_INFO, INITIAL_SETTINGS} from './auto-card-page.const';
 
 @Component({
   selector: 'app-auto-card-page',
@@ -46,7 +47,12 @@ export class AutoCardPageComponent {
   }
 
   public handleCancel() {
-    console.log('cancel');
+    this.clearStore();
+  }
+
+  private clearStore() {
+    this._facade.store.setSettingsForm(INITIAL_SETTINGS);
+    this._facade.store.setInfoForm(INITIAL_INFO);
   }
 
   public handleDelete() {

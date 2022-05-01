@@ -48,6 +48,7 @@ export class AutoInfoComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
     this.createFormChangeSubscription();
+    this.clearFormSubscription();
   }
 
   private createForm() {
@@ -86,5 +87,15 @@ export class AutoInfoComponent implements OnInit {
         path: url,
       });
     };
+  }
+
+  private clearFormSubscription() {
+    this._facade.resetAutoCardForms$.pipe(
+      tap(() => {
+        this.form.reset();
+        this._picture.next(NO_PICTURE);
+      }),
+      takeUntil(this._destroy$),
+    ).subscribe();
   }
 }

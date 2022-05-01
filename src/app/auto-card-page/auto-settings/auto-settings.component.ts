@@ -80,6 +80,7 @@ export class AutoSettingsComponent implements OnInit {
     this.createForm();
     this.createFormChangeSubscription();
     this.addPriceMaxValidationSubscription();
+    this.clearFormSubscription();
   }
 
   private createForm() {
@@ -100,10 +101,7 @@ export class AutoSettingsComponent implements OnInit {
   private createFormChangeSubscription() {
     this.form.valueChanges.pipe(
       debounceTime(500),
-      tap(() => {
-        this.formChanged.emit(this.createDataToEmit());
-        console.log(this.form.get('colors'));
-      }),
+      tap(() => this.formChanged.emit(this.createDataToEmit())),
       takeUntil(this._destroy$))
       .subscribe();
   }
@@ -145,5 +143,26 @@ export class AutoSettingsComponent implements OnInit {
 
   public deleteColor(i: number) {
     (this.form.get('colors') as FormArray).removeAt(i);
+  }
+
+  public clearForm() {
+    this._facade.resetAutoCardForms$.next();
+    this.canceled.emit();
+  }
+
+  private clearFormSubscription() {
+    this._facade.resetAutoCardForms$.pipe(
+      tap(() => {
+        this.clearFormArray(this.form.get('colors') as FormArray);
+        this.form.reset();
+      }),
+      takeUntil(this._destroy$),
+    ).subscribe();
+  }
+
+  private clearFormArray(formArray: FormArray) {
+    while (formArray.length !== 0) {
+      formArray.removeAt(0);
+    }
   }
 }

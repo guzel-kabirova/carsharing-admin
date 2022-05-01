@@ -85,7 +85,7 @@
     <div class="settings__left-btns">
       <button app-button class="settings__action_save" (click)="saved.emit()" [disabled]="!isFormFull">Сохранить
       </button>
-      <button app-button class="settings__action_cancel" (click)="canceled.emit()">Отменить</button>
+      <button app-button class="settings__action_cancel" (click)="clearForm()">Отменить</button>
     </div>
     <button app-button class="settings__action_delete" (click)="deleted.emit()">Удалить</button>
   </div>
