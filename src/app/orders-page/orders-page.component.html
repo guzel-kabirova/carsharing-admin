@@ -1,8 +1,10 @@
 <h2 class="page-name">Заказы</h2>
 <div class="content-card" *ngIf="orders$ | async as orders">
-  <app-orders-filter></app-orders-filter>
+  <app-orders-filter
+    [filterData]="filterData"
+  ></app-orders-filter>
   <div class="content-card__wrapper">
-    <table class="content-card__table">
+    <table class="content-card__table" *ngIf="!isLoading; else loading">
       <tbody>
       <tr class="order" *ngFor="let order of orders">
         <td class="order__picture">
@@ -50,15 +52,15 @@
           </div>
 
           <div class="order__btns" *ngSwitchDefault>
-            <button class="order__btn">
+            <button class="order__btn" (click)="applyOrder(order.id)">
               <svg class="order__icon done" icon="order-done"></svg>
               Готово
             </button>
-            <button class="order__btn">
+            <button class="order__btn" (click)="cancelOrder(order.id)">
               <svg class="order__icon cancel" icon="order-cancel"></svg>
               Отмена
             </button>
-            <button class="order__btn">
+            <button class="order__btn" (click)="editOrder(order.id)">
               <svg class="order__icon edit" icon="order-edit"></svg>
               Изменить
             </button>
@@ -67,6 +69,10 @@
       </tr>
       </tbody>
     </table>
+
+    <ng-template #loading>
+      <div class="content-card__loading">Загрузка...</div>
+    </ng-template>
   </div>
   <div class="content-card__pagination" *ngIf="ordersCount$ | async as ordersCount">
     <app-pagination [totalPages]="(ordersCount / rowsPerPage) | ceil"

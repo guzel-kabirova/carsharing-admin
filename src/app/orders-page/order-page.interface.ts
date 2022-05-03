@@ -94,3 +94,10 @@ export interface IRateType {
   unit: string;
   name: string;
 }
+
+export interface IFilterData {
+  interval: string[],
+  category: ICategory[],
+  city: ICity[],
+  status: IStatus[]
+}

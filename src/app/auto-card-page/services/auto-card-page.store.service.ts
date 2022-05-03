@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 
-import {ICategory, IFormInfo, IFormSettings, IThumbnail} from '../auto-card-page.interface';
+import {IFormInfo, IFormSettings, IThumbnail} from '../auto-card-page.interface';
 import {INITIAL_INFO, INITIAL_SETTINGS} from '../auto-card-page.const';
 import {selectTrulyObjectProperties} from '../../shared/utility/selectTrulyObjectProperties';
 import {NO_THUMBNAIL} from '../auto-info/auto-info.const';
@@ -15,9 +15,6 @@ export class AutoCardPageStoreService {
 
   private _settingsForm = new BehaviorSubject<IFormSettings>(INITIAL_SETTINGS);
   public settingsForm$ = this._settingsForm.asObservable();
-
-  private _categories = new BehaviorSubject<ICategory[]>([]);
-  public categories$ = this._categories.asObservable();
 
   private _percent = new BehaviorSubject<number>(0);
   public percent$ = this._percent.asObservable();
@@ -44,14 +41,6 @@ export class AutoCardPageStoreService {
 
   public setSettingsForm(settings: IFormSettings) {
     this._settingsForm.next(settings);
-  }
-
-  public setCategories(categories: ICategory[]) {
-    this._categories.next(categories);
-  }
-
-  public getCategories(): ICategory[] {
-    return this._categories.getValue();
   }
 
   public getPercent() {

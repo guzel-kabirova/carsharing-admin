@@ -68,7 +68,7 @@ export class AutoSettingsComponent implements OnInit {
 
   public form!: FormGroup;
 
-  public categories$ = this._facade.api.getCategories();
+  public categories$ = this._facade.appStore.categories$;
 
   constructor(
     @Inject(DestroyService) private _destroy$: Observable<void>,
@@ -84,7 +84,7 @@ export class AutoSettingsComponent implements OnInit {
   }
 
   private createForm() {
-    const defaultSettings = this._facade.store.getSettingsValue();
+    const defaultSettings = this._facade.autoCardStore.getSettingsValue();
     const colorsControls = defaultSettings.colors.map(color => new FormControl(color));
     const colors = this._fb.array(colorsControls);
 
@@ -128,7 +128,7 @@ export class AutoSettingsComponent implements OnInit {
   }
 
   private findCategory(id: string): ICategory {
-    return this._facade.store.getCategories().filter(category => category.id === id)[0];
+    return this._facade.appStore.getCategories().filter(category => category.id === id)[0];
   }
 
   public addColor() {

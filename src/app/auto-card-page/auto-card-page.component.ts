@@ -15,10 +15,10 @@ import {INITIAL_INFO, INITIAL_SETTINGS} from './auto-card-page.const';
   providers: [DestroyService],
 })
 export class AutoCardPageComponent {
-  public percent$ = this._facade.store.percent$;
+  public percent$ = this._facade.autoCardStore.percent$;
 
   public get isFormFull(): boolean {
-    return this._facade.store.getPercent() === 100;
+    return this._facade.autoCardStore.getPercent() === 100;
   }
 
   constructor(
@@ -28,9 +28,9 @@ export class AutoCardPageComponent {
 
   public handleSave() {
     if (this.isFormFull) {
-      const info = this._facade.store.getInfoValue();
-      const settings = this._facade.store.getSettingsValue();
-      const thumbnail = this._facade.store.getThumbnail();
+      const info = this._facade.autoCardStore.getInfoValue();
+      const settings = this._facade.autoCardStore.getSettingsValue();
+      const thumbnail = this._facade.autoCardStore.getThumbnail();
 
       const car: ICarDto = {
         name: settings.name,
@@ -51,8 +51,8 @@ export class AutoCardPageComponent {
   }
 
   private clearStore() {
-    this._facade.store.setSettingsForm(INITIAL_SETTINGS);
-    this._facade.store.setInfoForm(INITIAL_INFO);
+    this._facade.autoCardStore.setSettingsForm(INITIAL_SETTINGS);
+    this._facade.autoCardStore.setInfoForm(INITIAL_INFO);
   }
 
   public handleDelete() {
@@ -60,12 +60,12 @@ export class AutoCardPageComponent {
   }
 
   public changeInfo(info: IFormInfo) {
-    this._facade.store.setInfoForm(info);
-    this._facade.store.setPercent();
+    this._facade.autoCardStore.setInfoForm(info);
+    this._facade.autoCardStore.setPercent();
   }
 
   public changeSettings(settings: IFormSettings) {
-    this._facade.store.setSettingsForm(settings);
-    this._facade.store.setPercent();
+    this._facade.autoCardStore.setSettingsForm(settings);
+    this._facade.autoCardStore.setPercent();
   }
 }

@@ -49,7 +49,7 @@ export class AutoInfoComponent implements OnInit {
 
   public form!: FormGroup;
 
-  public settingsForm$ = this._facade.store.settingsForm$;
+  public settingsForm$ = this._facade.autoCardStore.settingsForm$;
 
   constructor(
     @Inject(DestroyService) private _destroy$: Observable<void>,
@@ -64,7 +64,7 @@ export class AutoInfoComponent implements OnInit {
   }
 
   private createForm() {
-    const defaultInfo = this._facade.store.getInfoValue();
+    const defaultInfo = this._facade.autoCardStore.getInfoValue();
     this.form = this._fb.group({
       url: defaultInfo.url,
       description: defaultInfo.description,
@@ -92,7 +92,7 @@ export class AutoInfoComponent implements OnInit {
         alt: picture.path,
       });
 
-      this._facade.store.setThumbnail({
+      this._facade.autoCardStore.setThumbnail({
         size: file.size,
         mimetype: file.type,
         originalname: file.name,
