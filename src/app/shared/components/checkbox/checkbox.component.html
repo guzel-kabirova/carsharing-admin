@@ -1,5 +1,7 @@
 <label [for]="idName" class="checkbox">
-  <input [id]="idName" type="checkbox" class="checkbox__modern" [checked]="isChecked"
+  <input [id]="idName" type="checkbox" class="checkbox__modern"
+         [checked]="isChecked"
+         [disabled]="isDisabled"
          (change)="changeCheckbox.emit(idName)">
   <div class="checkbox__custom">
     <svg class="icon" icon="ok"></svg>

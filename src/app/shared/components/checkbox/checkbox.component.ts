@@ -13,6 +13,8 @@ export class CheckboxComponent {
   public labelName = '';
   @Input()
   public isChecked = false;
+  @Input()
+  public isDisabled = false;
 
   @Output()
   changeCheckbox = new EventEmitter<string>();
