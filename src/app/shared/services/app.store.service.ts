@@ -29,6 +29,10 @@ export class AppStoreService {
     this._orderStatuses.next(statuses);
   }
 
+  public getOrderStatuses(): IStatus[] {
+    return this._orderStatuses.getValue();
+  }
+
   public setCities(cities: ICity[]) {
     this._cities.next(cities);
   }

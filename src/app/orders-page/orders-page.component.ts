@@ -4,7 +4,7 @@ import {combineLatest, Observable} from 'rxjs';
 
 import {DestroyService} from '../shared/services/destroy.service';
 import {OrdersPageFacadeService} from './services/orders-page.facade.service';
-import {ROWS_PER_PAGE} from './orders-page.const';
+import {INTERVALS, ROWS_PER_PAGE} from './orders-page.const';
 import {OrderStatus} from '../app.interface';
 import {IFilterData} from './order-page.interface';
 
@@ -51,6 +51,7 @@ export class OrdersPageComponent implements OnInit {
   }
 
   setFilterData() {
+    this.filterData.interval = INTERVALS;
     combineLatest([this._facade.appStore.categories$, this._facade.appStore.cities$, this._facade.appStore.orderStatuses$]).pipe(
       tap(([categories, cities, statuses]) => {
         this.filterData.category = categories;
@@ -67,15 +68,21 @@ export class OrdersPageComponent implements OnInit {
     this.loadOrders();
   }
 
-  public applyOrder(id: string) {
-    console.log(id);
+  public confirmOrder(id: string) {
+    this._facade.api.confirmOrder(id).pipe(
+      tap(() => this._facade.ordersStore.changeOrderStatus(id, OrderStatus.Confirmed)),
+      takeUntil(this._destroy$),
+    ).subscribe();
   }
 
   public cancelOrder(id: string) {
-    console.log(id);
+    this._facade.api.cancelOrder(id).pipe(
+      tap(() => this._facade.ordersStore.changeOrderStatus(id, OrderStatus.Canceled)),
+      takeUntil(this._destroy$),
+    ).subscribe();
   }
 
   public editOrder(id: string) {
-    console.log(id);
+    console.log('edit order with id:', id);
   }
 }

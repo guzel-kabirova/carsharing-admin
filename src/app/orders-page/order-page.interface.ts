@@ -96,8 +96,27 @@ export interface IRateType {
 }
 
 export interface IFilterData {
-  interval: string[],
+  interval: IInterval[],
   category: ICategory[],
   city: ICity[],
   status: IStatus[]
+}
+
+
+export enum Interval {
+  Today = 'Сегодня',
+  Yesterday = 'Вчера',
+  Last7Days = 'Последние 7 дней',
+  Last30Days = 'Последние 30 дней',
+  ThisMonth = 'Текущий месяц',
+  LastMonth = 'Прошлый месяц',
+  Last3Months = 'Последние 3 месяца',
+  Last6Months = 'Последние пол года',
+  LastYear = 'Прошлый год',
+  All = 'Все время'
+}
+
+export interface IInterval {
+  id: string;
+  name: Interval;
 }

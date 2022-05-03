@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 
 import {API_URL} from '../../app.const';
-import {IResponse} from '../../app.interface';
+import {IResponse, OrderStatus} from '../../app.interface';
 import {IOrder, OrderModel} from '../order-page.interface';
 import {OrdersPageStoreService} from './orders-page.store.service';
 import {ROWS_PER_PAGE} from '../orders-page.const';
@@ -19,7 +19,7 @@ export class OrdersPageApiService {
   ) {}
 
   getOrders(pageIndex: number): Observable<IResponse<IOrder>> {
-    return this._http.get<IResponse<IOrder>>(`${API_URL}db/order?page=${pageIndex}&limit=${ROWS_PER_PAGE}`).pipe(
+    return this._http.get<IResponse<IOrder>>(`${API_URL}db/order?sort[updatedAt]=-1&page=${pageIndex}&limit=${ROWS_PER_PAGE}`).pipe(
       tap(response => {
         this._store.setOrders(response.data.filter(order => !!order.carId).map(order => new OrderModel(order)));
         this._store.setOrdersCount(response.count);
@@ -27,11 +27,13 @@ export class OrdersPageApiService {
     );
   }
 
-  applyOrder(id: string) {
-
+  confirmOrder(id: string): Observable<IResponse<IOrder>> {
+    const orderStatusId = this._appStore.getOrderStatuses().filter(status => status.name.includes(OrderStatus.Confirmed))[0];
+    return this._http.put<IResponse<IOrder>>(`${API_URL}db/order/${id}`, {orderStatusId});
   }
 
-  cancelOrder(id: string) {
-
+  cancelOrder(id: string): Observable<IResponse<IOrder>> {
+    const orderStatusId = this._appStore.getOrderStatuses().filter(status => status.name.includes(OrderStatus.Canceled))[0];
+    return this._http.put<IResponse<IOrder>>(`${API_URL}db/order/${id}`, {orderStatusId});
   }
 }

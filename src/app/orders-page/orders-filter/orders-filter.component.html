@@ -4,7 +4,7 @@
       <select class="filter__field" app-input formControlName="interval"
               name="interval">
         <option [value]="null">Промежуток</option>
-        <option *ngFor="let interval of filterData.interval" [value]="interval">{{interval}}</option>
+        <option *ngFor="let interval of filterData.interval" [value]="interval.id">{{interval.name}}</option>
       </select>
     </div>
 
