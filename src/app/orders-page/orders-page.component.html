@@ -6,7 +6,7 @@
       <tbody>
       <tr class="order" *ngFor="let order of orders">
         <td class="order__picture">
-          <img class="order__img" [src]="order.carId.path" [alt]="order.carId.name">
+          <img class="order__img carPicture" [src]="order.carId.path" [alt]="order.carId.name">
         </td>
 
         <td class="order__info">
@@ -44,9 +44,9 @@
           </div>
 
           <div class="order__status" *ngSwitchCase="status.Confirmed">
-            <svg class="order__icon cancel" icon="order-done"></svg>
+            <svg class="order__icon done" icon="order-done"></svg>
             Заказ подтвержден
-            <svg class="order__icon cancel" icon="order-done"></svg>
+            <svg class="order__icon done" icon="order-done"></svg>
           </div>
 
           <div class="order__btns" *ngSwitchDefault>
@@ -69,6 +69,8 @@
     </table>
   </div>
   <div class="content-card__pagination" *ngIf="ordersCount$ | async as ordersCount">
-    <app-pagination [totalPages]="(ordersCount / rowsPerPage) | ceil"></app-pagination>
+    <app-pagination [totalPages]="(ordersCount / rowsPerPage) | ceil"
+                    (paginationChanged)="changePage($event)"
+    ></app-pagination>
   </div>
 </div>

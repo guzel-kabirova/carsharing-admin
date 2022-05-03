@@ -1,6 +1,6 @@
 <form [formGroup]="form" *ngIf="settingsForm$ | async as settingsForm">
   <div class="info">
-    <img class="info__picture" *ngIf="picture$ | async as picture" [src]="picture.src" [alt]="picture.alt">
+    <img class="info__picture carPicture" *ngIf="picture$ | async as picture" [src]="picture.src" [alt]="picture.alt">
     <h3 class="info__title">{{settingsForm?.name || 'Модель не введена'}}</h3>
     <h4 class="info__subtitle">{{settingsForm?.categoryId?.name || 'Категория не выбрана'}}</h4>
     <app-input-file (pictureSelected)="handlePictureSelect($event)"></app-input-file>

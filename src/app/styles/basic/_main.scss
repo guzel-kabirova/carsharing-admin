@@ -38,3 +38,32 @@
     margin: 21px auto 20px;
   }
 }
+
+.carPicture {
+  display: block;
+  object-fit: cover;
+  position: relative;
+
+  &:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--color-secondary);
+  }
+
+  &:after {
+    content: attr(alt);
+    display: block;
+    font: var(--text);
+    color: var(--color-text-main);
+    position: absolute;
+    top: calc(50% - 8px);
+    left: 0;
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -28,6 +28,14 @@ export class OrdersPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._facade.api.getOrders().pipe(takeUntil(this._destroy$)).subscribe();
+    this.loadOrders();
+  }
+
+  private loadOrders(page: number = 0) {
+    this._facade.api.getOrders(page).pipe(takeUntil(this._destroy$)).subscribe();
+  }
+
+  changePage(page: number) {
+    this.loadOrders(page - 1);
   }
 }
