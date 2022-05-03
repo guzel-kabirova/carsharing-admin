@@ -18,8 +18,8 @@ export class OrdersPageApiService {
     private _appStore: AppStoreService,
   ) {}
 
-  getOrders(pageIndex: number): Observable<IResponse<IOrder>> {
-    return this._http.get<IResponse<IOrder>>(`${API_URL}db/order?sort[updatedAt]=-1&page=${pageIndex}&limit=${ROWS_PER_PAGE}`).pipe(
+  getOrders(pageIndex: number, filters: string): Observable<IResponse<IOrder>> {
+    return this._http.get<IResponse<IOrder>>(`${API_URL}db/order?sort[updatedAt]=-1&page=${pageIndex}&limit=${ROWS_PER_PAGE}${filters}`).pipe(
       tap(response => {
         this._store.setOrders(response.data.filter(order => !!order.carId).map(order => new OrderModel(order)));
         this._store.setOrdersCount(response.count);

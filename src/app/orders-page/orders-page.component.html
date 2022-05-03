@@ -2,10 +2,11 @@
 <div class="content-card" *ngIf="orders$ | async as orders">
   <app-orders-filter
     [filterData]="filterData"
+    (filterApplied)="handelFilter($event)"
   ></app-orders-filter>
   <div class="content-card__wrapper">
     <table class="content-card__table" *ngIf="!isLoading; else loading">
-      <tbody>
+      <tbody *ngIf="!!orders.length; else noData">
       <tr class="order" *ngFor="let order of orders">
         <td class="order__picture">
           <img class="order__img carPicture" [src]="order.carId.path" [alt]="order.carId.name">
@@ -72,6 +73,10 @@
 
     <ng-template #loading>
       <div class="content-card__loading">Загрузка...</div>
+    </ng-template>
+
+    <ng-template #noData>
+      <div class="content-card__loading">Нет подходящих данных</div>
     </ng-template>
   </div>
   <div class="content-card__pagination" *ngIf="ordersCount$ | async as ordersCount">

@@ -48,7 +48,12 @@ export class PaginationComponent {
     const current = this.activePage;
     let before = current - 1;
     let after = current + 1;
+
     const pages = [];
+
+    if (this.totalPages === 1) {
+      return [1];
+    }
 
     switch (current) {
       case this.totalPages:

@@ -4,7 +4,7 @@ import {combineLatest, Observable} from 'rxjs';
 
 import {DestroyService} from '../shared/services/destroy.service';
 import {OrdersPageFacadeService} from './services/orders-page.facade.service';
-import {INTERVALS, ROWS_PER_PAGE} from './orders-page.const';
+import {ROWS_PER_PAGE} from './orders-page.const';
 import {OrderStatus} from '../app.interface';
 import {IFilterData} from './order-page.interface';
 
@@ -24,13 +24,13 @@ export class OrdersPageComponent implements OnInit {
 
   public status = OrderStatus;
   public filterData: IFilterData = {
-    interval: [],
     category: [],
     city: [],
     status: [],
   };
 
   private _page = 0;
+  private _filters = '';
 
   constructor(
     @Inject(DestroyService) private _destroy$: Observable<void>,
@@ -44,14 +44,13 @@ export class OrdersPageComponent implements OnInit {
 
   private loadOrders() {
     this.isLoading = true;
-    this._facade.api.getOrders(this._page).pipe(
+    this._facade.api.getOrders(this._page, this._filters).pipe(
       tap(() => this.isLoading = false),
       takeUntil(this._destroy$),
     ).subscribe();
   }
 
   setFilterData() {
-    this.filterData.interval = INTERVALS;
     combineLatest([this._facade.appStore.categories$, this._facade.appStore.cities$, this._facade.appStore.orderStatuses$]).pipe(
       tap(([categories, cities, statuses]) => {
         this.filterData.category = categories;
@@ -84,5 +83,26 @@ export class OrdersPageComponent implements OnInit {
 
   public editOrder(id: string) {
     console.log('edit order with id:', id);
+  }
+
+  handelFilter(filters: Partial<IFilterData>) {
+    let resultStr = '';
+    Object.keys(filters).map(key => {
+      switch (key) {
+        case 'category':
+          resultStr += `&categoryId=${filters.category}`;
+          break;
+        case 'city':
+          resultStr += `&cityId=${filters.city}`;
+          break;
+        case 'status':
+          resultStr += `&orderStatusId=${filters.status}`;
+          break;
+        default:
+          resultStr += '';
+      }
+    });
+    this._filters = resultStr;
+    this.loadOrders();
   }
 }

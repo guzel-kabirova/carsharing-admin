@@ -1,17 +1,9 @@
 <div class="container" *ngIf="form && filterData">
   <form class="filter" [formGroup]="form">
     <div>
-      <select class="filter__field" app-input formControlName="interval"
-              name="interval">
-        <option [value]="null">Промежуток</option>
-        <option *ngFor="let interval of filterData.interval" [value]="interval.id">{{interval.name}}</option>
-      </select>
-    </div>
-
-    <div>
       <select class="filter__field" app-input formControlName="category"
               name="category">
-        <option [value]="null">Категория</option>
+        <option value="">Категория</option>
         <option *ngFor="let category of filterData.category" [value]="category.id">{{category.name}}</option>
       </select>
     </div>
@@ -19,7 +11,7 @@
     <div>
       <select class="filter__field" app-input formControlName="city"
               name="city">
-        <option [value]="null">Город</option>
+        <option value="">Город</option>
         <option *ngFor="let city of filterData.city" [value]="city.id">{{city.name}}</option>
       </select>
     </div>
@@ -27,11 +19,11 @@
     <div>
       <select class="filter__field" app-input formControlName="status"
               name="status">
-        <option [value]="null">Статус</option>
+        <option value="">Статус</option>
         <option *ngFor="let status of filterData.status" [value]="status.id">{{status.name}}</option>
       </select>
     </div>
   </form>
 
-  <button app-button>Применить</button>
+  <button app-button (click)="applyFilters()">Применить</button>
 </div>
