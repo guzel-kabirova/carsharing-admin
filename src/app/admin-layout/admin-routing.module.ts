@@ -9,11 +9,13 @@ import {OrdersPageComponent} from '../orders-page/orders-page.component';
 import {CheckboxModule} from '../shared/components/checkbox/checkbox.module';
 import {InputFileModule} from '../shared/components/input-file/input-file.module';
 import {InputModule} from '../shared/components/input/input.module';
+import {AutoCardPageResolver} from '../auto-card-page/services/auto-card-page.resolver';
 
 const routes: Routes = [
   {
     path: '', component: AdminLayoutComponent, children: [
       {path: 'card', component: AutoCardPageComponent},
+      {path: 'card/:id', component: AutoCardPageComponent, resolve: {car: AutoCardPageResolver}},
       {path: 'list', component: AutoListPageComponent},
       {path: 'orders', component: OrdersPageComponent},
       {path: 'error', component: ErrorPageComponent},

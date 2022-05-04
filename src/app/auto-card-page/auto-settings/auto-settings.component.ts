@@ -90,7 +90,7 @@ export class AutoSettingsComponent implements OnInit {
 
     this.form = this._fb.group({
       name: [defaultSettings.name, Validators.required],
-      category: [defaultSettings.categoryId, Validators.required],
+      category: [defaultSettings.categoryId?.id, Validators.required],
       priceMin: [defaultSettings.priceMin, [Validators.required, Validators.min(0)]],
       priceMax: [defaultSettings.priceMax, [Validators.required, Validators.min(0)]],
       color: [''],
@@ -164,5 +164,10 @@ export class AutoSettingsComponent implements OnInit {
     while (formArray.length !== 0) {
       formArray.removeAt(0);
     }
+  }
+
+  deleteCar() {
+    this.deleted.emit();
+    this.clearForm();
   }
 }

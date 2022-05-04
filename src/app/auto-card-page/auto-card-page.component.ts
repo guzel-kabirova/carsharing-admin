@@ -1,11 +1,13 @@
-import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {takeUntil, tap} from 'rxjs/operators';
+import {ActivatedRoute} from '@angular/router';
 
 import {ICarDto, IFormInfo, IFormSettings} from './auto-card-page.interface';
 import {AutoCardPageFacadeService} from './services/auto-card-page.facade.service';
 import {DestroyService} from '../shared/services/destroy.service';
 import {INITIAL_INFO, INITIAL_SETTINGS} from './auto-card-page.const';
+import {ICar} from '../orders-page/order-page.interface';
 
 @Component({
   selector: 'app-auto-card-page',
@@ -14,7 +16,8 @@ import {INITIAL_INFO, INITIAL_SETTINGS} from './auto-card-page.const';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DestroyService],
 })
-export class AutoCardPageComponent {
+export class AutoCardPageComponent implements OnInit {
+  private _id = '';
   public percent$ = this._facade.autoCardStore.percent$;
 
   public get isFormFull(): boolean {
@@ -24,7 +27,12 @@ export class AutoCardPageComponent {
   constructor(
     @Inject(DestroyService) private _destroy$: Observable<void>,
     private _facade: AutoCardPageFacadeService,
+    private route: ActivatedRoute,
   ) { }
+
+  ngOnInit(): void {
+    this.route.data.pipe(tap(data => this._id = (data as { car: ICar }).car?.id || ''), takeUntil(this._destroy$)).subscribe();
+  }
 
   public handleSave() {
     if (this.isFormFull) {
@@ -42,6 +50,10 @@ export class AutoCardPageComponent {
         thumbnail,
       };
 
+      if (!!this._id) {
+        this._facade.api.editCar(car).pipe(takeUntil(this._destroy$)).subscribe();
+        return;
+      }
       this._facade.api.setNewCar(car).pipe(takeUntil(this._destroy$)).subscribe();
     }
   }
@@ -56,7 +68,11 @@ export class AutoCardPageComponent {
   }
 
   public handleDelete() {
-    console.log('delete');
+    if (!!this._id) {
+      this._facade.api.deleteCar(this._id).pipe(takeUntil(this._destroy$)).subscribe();
+      return;
+    }
+    this.handleCancel();
   }
 
   public changeInfo(info: IFormInfo) {

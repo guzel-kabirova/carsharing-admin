@@ -5,6 +5,7 @@ import {IFormInfo, IFormSettings, IThumbnail} from '../auto-card-page.interface'
 import {INITIAL_INFO, INITIAL_SETTINGS} from '../auto-card-page.const';
 import {selectTrulyObjectProperties} from '../../shared/utility/selectTrulyObjectProperties';
 import {NO_THUMBNAIL} from '../auto-info/auto-info.const';
+import {ICar} from '../../orders-page/order-page.interface';
 
 @Injectable({providedIn: 'root'})
 export class AutoCardPageStoreService {
@@ -62,5 +63,21 @@ export class AutoCardPageStoreService {
 
   private getFilledInputsNumber(object: object): number {
     return Object.keys(selectTrulyObjectProperties(object)).length;
+  }
+
+  public setCarToEditForm(car: ICar) {
+    const info: IFormInfo = {
+      url: car.thumbnail.path,
+      description: car.description,
+    };
+    const settings: IFormSettings = {
+      name: car.name,
+      colors: car.colors,
+      categoryId: car.categoryId,
+      priceMax: car.priceMax,
+      priceMin: car.priceMin,
+    };
+    this.setInfoForm(info);
+    this.setSettingsForm(settings);
   }
 }

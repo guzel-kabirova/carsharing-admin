@@ -1,4 +1,4 @@
-import {ICategory, IThumbnail} from '../auto-card-page/auto-card-page.interface';
+import {ICarDto} from '../auto-card-page/auto-card-page.interface';
 import {toUserFriendlyDate} from '../shared/utility/toUserFriendlyDate';
 
 export interface IOrder {
@@ -55,17 +55,10 @@ export class CarModel {
   }
 }
 
-export interface ICar {
-  categoryId: ICategory;
-  colors: string[];
-  description: string;
+export interface ICar extends ICarDto {
   id: string;
-  name: string;
   number: string;
-  priceMax: number;
-  priceMin: number;
   tank: number;
-  thumbnail: IThumbnail;
 }
 
 export interface ICity {

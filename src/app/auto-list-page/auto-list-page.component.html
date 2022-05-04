@@ -15,7 +15,7 @@
 
       <ng-container *ngIf="!isLoading; else loading">
         <tbody class="entities__body" *ngIf="!!cars.length; else noData">
-        <tr *ngFor="let car of cars">
+        <tr class="car-row" *ngFor="let car of cars" [routerLink]="['/admin', 'card', car.id]">
           <td>{{car.name}}</td>
           <td>{{car.description}}</td>
           <td>{{car.categoryId.name}}</td>

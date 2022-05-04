@@ -59,6 +59,7 @@ export class AutoInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    this.setDefaultPicture();
     this.createFormChangeSubscription();
     this.clearFormSubscription();
   }
@@ -68,6 +69,13 @@ export class AutoInfoComponent implements OnInit {
     this.form = this._fb.group({
       url: defaultInfo.url,
       description: defaultInfo.description,
+    });
+  }
+
+  private setDefaultPicture() {
+    this._picture.next({
+      src: this._facade.autoCardStore.getInfoValue().url,
+      alt: this._facade.autoCardStore.getSettingsValue().name,
     });
   }
 
