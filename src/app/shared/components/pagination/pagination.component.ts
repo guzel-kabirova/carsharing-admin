@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 
 import {Pagination} from './pagination.enum';
 
@@ -15,6 +15,8 @@ export class PaginationComponent {
   public firstPage = 1;
   @Input()
   public totalPages = 0;
+  @Output()
+  public paginationChanged = new EventEmitter<number>();
 
   private _activePage = this.firstPage;
 
@@ -46,7 +48,12 @@ export class PaginationComponent {
     const current = this.activePage;
     let before = current - 1;
     let after = current + 1;
+
     const pages = [];
+
+    if (this.totalPages === 1) {
+      return [1];
+    }
 
     switch (current) {
       case this.totalPages:
@@ -85,20 +92,25 @@ export class PaginationComponent {
   }
 
   public setActivePage(page: number) {
-    return this.activePage = page;
+    this.activePage = page;
+    this.emitPage();
   }
 
   public onArrowClick(buttonName: Pagination) {
     if (buttonName === Pagination.Prev) {
-      this.activePage = this.activePage - 1;
+      this.setActivePage(this.activePage - 1);
       return;
     }
 
     if (buttonName === Pagination.Next) {
-      this.activePage = this.activePage + 1;
+      this.setActivePage(this.activePage + 1);
       return;
     }
 
     return;
+  }
+
+  private emitPage() {
+    this.paginationChanged.emit(this.activePage);
   }
 }

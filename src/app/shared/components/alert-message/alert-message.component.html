@@ -1,0 +1,10 @@
+<ng-container *ngIf="alert$ | async as alert">
+  <div class="message" [ngClass]="{
+  message_done: alert.type === 'success',
+  message_cancel: alert.type === 'danger'
+  }">
+    <svg class="message__icon" icon="order-done" *ngIf="alert.type === 'success'"></svg>
+    <svg class="message__icon" icon="order-cancel" *ngIf="alert.type === 'danger'"></svg>
+    <span>{{alert.text}}</span>
+  </div>
+</ng-container>

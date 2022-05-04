@@ -1,8 +1,21 @@
-<div class="filter">
-  <app-input-filter text="За неделю"></app-input-filter>
-  <app-input-filter text="Elantra"></app-input-filter>
-  <app-input-filter text="Ульяновск"></app-input-filter>
-  <app-input-filter text="В процессе"></app-input-filter>
-</div>
+<div class="container" *ngIf="form && filterData">
+  <form class="filter" [formGroup]="form">
+    <div>
+      <select class="filter__field" app-input formControlName="city"
+              name="city">
+        <option value="">Город</option>
+        <option *ngFor="let city of filterData.city" [value]="city.id">{{city.name}}</option>
+      </select>
+    </div>
 
-<button app-button>Применить</button>
+    <div>
+      <select class="filter__field" app-input formControlName="status"
+              name="status">
+        <option value="">Статус</option>
+        <option *ngFor="let status of filterData.status" [value]="status.id">{{status.name}}</option>
+      </select>
+    </div>
+  </form>
+
+  <button app-button (click)="applyFilters()">Применить</button>
+</div>

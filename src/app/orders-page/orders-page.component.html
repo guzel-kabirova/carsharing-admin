@@ -1,19 +1,87 @@
 <h2 class="page-name">Заказы</h2>
-<div class="content-card">
-  <app-orders-filter></app-orders-filter>
+<div class="content-card" *ngIf="orders$ | async as orders">
+  <app-orders-filter
+    [filterData]="filterData"
+    (filterApplied)="handelFilter($event)"
+  ></app-orders-filter>
   <div class="content-card__wrapper">
-    <table class="content-card__table">
-      <tbody>
-      <app-order carModel="ELANTRA"
-                 location="Ульяновск, Нариманова 42"
-                 rentDate="12.06.2019 12:00 — 13.06.2019 12:00"
-                 carColor="Голубой"
-                 price="4300"
-      ></app-order>
+    <table class="content-card__table" *ngIf="!isLoading; else loading">
+      <tbody *ngIf="!!orders.length; else noData">
+      <tr class="order" *ngFor="let order of orders">
+        <td class="order__picture">
+          <img class="order__img carPicture" [src]="order.carId.path" [alt]="order.carId.name">
+        </td>
+
+        <td class="order__info">
+          <p><span class="order__main">{{order.carId.name}} {{order.location}}</span></p>
+          <p><span>{{order.dateInterval}}</span></p>
+          <p><span>Цвет:</span><span class="order__main"> {{order.color}}</span></p>
+          <p class="order__price-adaptive"><span>Цена:</span><span class="order__main"> {{order.price}} ₽</span></p>
+        </td>
+
+        <td>
+          <div class="order__checkbox">
+            <app-checkbox [idName]="'isFullTank' + order.id" labelName="Полный бак" [isChecked]="order.isFullTank"
+                          [isDisabled]="true"></app-checkbox>
+          </div>
+          <div class="order__checkbox">
+            <app-checkbox [idName]="'isNeedChildChair' + order.id" labelName="Детское кресло"
+                          [isChecked]="order.isNeedChildChair" [isDisabled]="true"></app-checkbox>
+          </div>
+          <div class="order__checkbox">
+            <app-checkbox
+              [idName]="'isRightWheel' + order.id" labelName="Правый руль" [isChecked]="order.isRightWheel"
+              [isDisabled]="true"></app-checkbox>
+          </div>
+        </td>
+
+        <td class="order__price">
+          {{order.price}} ₽
+        </td>
+
+        <td [ngSwitch]="order.orderStatus">
+          <div class="order__status" *ngSwitchCase="status.Canceled">
+            <svg class="order__icon cancel" icon="order-cancel"></svg>
+            Заказ отменен
+            <svg class="order__icon cancel" icon="order-cancel"></svg>
+          </div>
+
+          <div class="order__status" *ngSwitchCase="status.Confirmed">
+            <svg class="order__icon done" icon="order-done"></svg>
+            Заказ подтвержден
+            <svg class="order__icon done" icon="order-done"></svg>
+          </div>
+
+          <div class="order__btns" *ngSwitchDefault>
+            <button class="order__btn" (click)="confirmOrder(order.id)">
+              <svg class="order__icon done" icon="order-done"></svg>
+              Готово
+            </button>
+            <button class="order__btn" (click)="cancelOrder(order.id)">
+              <svg class="order__icon cancel" icon="order-cancel"></svg>
+              Отмена
+            </button>
+            <button class="order__btn" (click)="editOrder(order.id)">
+              <svg class="order__icon edit" icon="order-edit"></svg>
+              Изменить
+            </button>
+          </div>
+        </td>
+      </tr>
       </tbody>
     </table>
+
+    <ng-template #loading>
+      <div class="content-card__loading">Загрузка...</div>
+    </ng-template>
+
+    <ng-template #noData>
+      <div class="content-card__loading">Нет подходящих данных</div>
+    </ng-template>
   </div>
-  <div class="content-card__pagination">
-    <app-pagination [totalPages]="31"></app-pagination>
+  <div class="content-card__pagination" *ngIf="ordersCount$ | async as ordersCount">
+    <app-pagination [totalPages]="(ordersCount / rowsPerPage) | ceil"
+                    (paginationChanged)="changePage($event)"
+    ></app-pagination>
   </div>
 </div>

@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, HostBinding, Input} from '@angular/core';
 
 @Component({
-  selector: 'input[app-input]',
+  selector: 'input[app-input], select[app-input]',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

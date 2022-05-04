@@ -1,79 +1,49 @@
 <h2 class="page-name">Список авто</h2>
-<div class="content-card">
-  <app-auto-list-filter></app-auto-list-filter>
+<div class="content-card" *ngIf="cars$ | async as cars">
+  <app-auto-list-filter [filterData]="filterData"
+                        (filterApplied)="handelFilter($event)"
+                        (filterCleared)="handelFilter()"
+  ></app-auto-list-filter>
+
   <div class="content-card__wrapper entities">
     <table class="content-card__table entities__table">
       <thead class="entities__header">
       <tr>
-        <th>Header</th>
-        <th>Header</th>
-        <th>Header</th>
-        <th>Header</th>
-        <th>Header</th>
-        <th>Header</th>
-        <th>Header</th>
+        <th *ngFor="let header of headers">{{header}}</th>
       </tr>
       </thead>
 
-      <tbody class="entities__body">
-      <tr>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-      </tr>
-      <tr>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-      </tr>
-      <tr>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-      </tr>
-      <tr>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-      </tr>
-      <tr>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-      </tr>
-      <tr>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-        <td>Header</td>
-      </tr>
-      </tbody>
+      <ng-container *ngIf="!isLoading; else loading">
+        <tbody class="entities__body" *ngIf="!!cars.length; else noData">
+        <tr class="car-row" *ngFor="let car of cars" [routerLink]="['/admin', 'card', car.id]">
+          <td>{{car.name}}</td>
+          <td>{{car.description}}</td>
+          <td>{{car.categoryId?.name}}</td>
+          <td>
+            <ul>
+              <li *ngFor="let color of car.colors">{{color}}</li>
+            </ul>
+          </td>
+          <td>{{car.priceMin}}</td>
+          <td>{{car.priceMax}}</td>
+          <td>{{car.tank || 0}}%</td>
+        </tr>
+        </tbody>
+      </ng-container>
     </table>
   </div>
-  <div class="content-card__pagination">
-    <app-pagination [totalPages]="31"></app-pagination>
+
+  <ng-template #loading>
+    <div class="content-card__loading">Загрузка...</div>
+  </ng-template>
+
+  <ng-template #noData>
+    <div class="content-card__loading">Нет подходящих данных</div>
+  </ng-template>
+
+  <div class="content-card__pagination" *ngIf="carsCount$ | async as carsCount">
+    <app-pagination [totalPages]="(carsCount / rowsPerPage) | ceil"
+                    (paginationChanged)="changePage($event)"
+    ></app-pagination>
   </div>
 </div>

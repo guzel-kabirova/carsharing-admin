@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
+import {ReactiveFormsModule} from '@angular/forms';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -16,9 +17,10 @@ import {PaginationModule} from './shared/components/pagination/pagination.module
 import {AutoInfoComponent} from './auto-card-page/auto-info/auto-info.component';
 import {AutoSettingsComponent} from './auto-card-page/auto-settings/auto-settings.component';
 import {OrdersFilterComponent} from './orders-page/orders-filter/orders-filter.component';
-import {OrderComponent} from './orders-page/order/order.component';
 import {InputFilterModule} from './shared/components/input-filter/input-filter.module';
 import {AutoListFilterComponent} from './auto-list-page/auto-list-filter/auto-list-filter.component';
+import {CeilPipe} from './shared/pipes/ceil.pipe';
+import {AlertMessageModule} from './shared/components/alert-message/alert-message.module';
 
 @NgModule({
   declarations: [
@@ -29,8 +31,8 @@ import {AutoListFilterComponent} from './auto-list-page/auto-list-filter/auto-li
     AutoInfoComponent,
     AutoSettingsComponent,
     OrdersFilterComponent,
-    OrderComponent,
     AutoListFilterComponent,
+    CeilPipe,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,8 @@ import {AutoListFilterComponent} from './auto-list-page/auto-list-filter/auto-li
     ButtonModule,
     PaginationModule,
     InputFilterModule,
+    AlertMessageModule,
+    ReactiveFormsModule,
   ],
   providers: [ICONS_PROVIDER],
   bootstrap: [AppComponent],

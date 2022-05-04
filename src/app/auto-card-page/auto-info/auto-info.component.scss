@@ -5,7 +5,6 @@
   padding: 34px 45px 22px;
 
   &__picture {
-    background-color: var(--color-secondary);
     width: 243px;
     height: 110px;
   }
@@ -49,7 +48,7 @@
     height: 5px;
 
     &_done {
-      width: 74%;
+      width: 0;
       border-radius: var(--radius-btn);
       background-color: var(--color-blue);
       height: 5px;
@@ -61,6 +60,7 @@
   padding: 22px 22px 45px;
 
   &__title {
+    display: block;
     font: var(--text);
     color: var(--color-text-description);
     margin-bottom: 13px;
@@ -71,8 +71,19 @@
     color: var(--color-text-main);
   }
 
-  &__text {
+  &__textarea {
     font: var(--text);
     color: var(--color-text-main);
+    display: block;
+    padding: 0;
+    border: none;
+    width: 100%;
+    height: 90px;
+    resize: none;
+    overflow: hidden;
+
+    &:focus {
+      outline: none;
+    }
   }
 }

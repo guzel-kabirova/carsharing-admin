@@ -1,4 +1,4 @@
-:host {
+.container {
   padding: 16px 21px 14px;
   display: flex;
   justify-content: space-between;
@@ -22,5 +22,9 @@
 
   @media (max-width: 1024px) {
     flex-direction: column;
+  }
+
+  &__field {
+    width: 140px;
   }
 }

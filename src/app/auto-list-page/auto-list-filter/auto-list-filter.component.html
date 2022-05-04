@@ -1,11 +1,16 @@
-<div class="filter">
-  <app-input-filter text="Field"></app-input-filter>
-  <app-input-filter text="Field"></app-input-filter>
-  <app-input-filter text="Field"></app-input-filter>
-  <app-input-filter text="Field"></app-input-filter>
-</div>
+<div class="container" *ngIf="filterData">
+  <form class="filter" [formGroup]="form">
+    <div>
+      <select class="filter__field" app-input formControlName="category"
+              name="category">
+        <option value="">Категория</option>
+        <option *ngFor="let category of filterData.category" [value]="category.id">{{category.name}}</option>
+      </select>
+    </div>
+  </form>
 
-<div class="action">
-  <button class="action__reset" app-button>Очистить</button>
-  <button app-button>Применить</button>
+  <div class="action">
+    <button class="action__reset" app-button (click)="clearFilters()">Очистить</button>
+    <button app-button (click)="applyFilters()">Применить</button>
+  </div>
 </div>

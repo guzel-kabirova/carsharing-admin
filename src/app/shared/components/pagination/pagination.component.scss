@@ -13,8 +13,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 24px;
+    padding: 4px;
+    min-width: 24px;
     height: 24px;
+  }
+
+  &__dots {
+    cursor: default;
   }
 
   &__page, &__prev, &__next {

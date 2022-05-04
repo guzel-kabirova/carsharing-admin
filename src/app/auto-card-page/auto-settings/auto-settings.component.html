@@ -1,44 +1,92 @@
 <div class="settings">
-  <div class="settings__content">
+  <form class="settings__content" [formGroup]="form">
     <h3 class="settings__title">Настройки автомобиля</h3>
 
-    <div class="settings__first-line">
+    <div class="settings__line">
       <div class="field">
         <label for="model" app-label>Модель автомобиля</label>
-        <input id="model" app-input value="Hyndai, i30 N">
+        <input id="model" app-input formControlName="name"
+               placeholder="Введите модель авто..."
+               autocomplete="off"
+               [invalid]="isNameInvalid">
+        <app-error *ngIf="isNameInvalid">Обязательно для заполнения!</app-error>
       </div>
 
       <div class="field">
-        <label for="type" app-label>Тип автомобиля</label>
-        <input id="type" app-input value="Компакт-кар" [invalid]="true">
-        <app-error>Пример ошибки</app-error>
+        <label for="type" app-label>Категория автомобиля</label>
+        <select id="type" app-input formControlName="category"
+                name="category"
+                [invalid]="isCategoryInvalid"
+        >
+          <option [value]="null">Выберите категорию авто...</option>
+          <option *ngFor="let category of categories$ | async" [value]="category.id">{{category.name}}</option>
+        </select>
+        <app-error *ngIf="isCategoryInvalid">Обязательно для заполнения!</app-error>
       </div>
     </div>
 
+    <div class="settings__line">
+      <div class="settings__prices">
+        <div class="field">
+          <label for="priceMin" app-label>Минимальная цена</label>
+          <input id="priceMin" app-input formControlName="priceMin"
+                 placeholder="от"
+                 type="number"
+                 step="10"
+                 autocomplete="off"
+                 [invalid]="isPriceMin || isPriceMinMinimum">
+          <app-error *ngIf="isPriceMin">Обязательно для заполнения!</app-error>
+          <app-error *ngIf="isPriceMinMinimum">Цена не может быть меньше нуля!</app-error>
+        </div>
 
-    <div class="field">
-      <label for="color" app-label>Доступные цвета</label>
-      <div class="field__color">
-        <input id="color" class="field__input" app-input value="Синий">
-        <div class="field__add">
-          <svg class="icon" icon="add"></svg>
+        <div class="field">
+          <label for="priceMax" app-label>Максимальная цена</label>
+          <input id="priceMax" app-input formControlName="priceMax"
+                 placeholder="до"
+                 type="number"
+                 step="10"
+                 autocomplete="off"
+                 [invalid]="isPriceMax || isPriceMaxMinimum">
+          <app-error *ngIf="isPriceMax">Обязательно для заполнения!</app-error>
+          <app-error *ngIf="isPriceMaxMinimum">Цена не может быть меньше нуля и меньше минимальной цены!</app-error>
+        </div>
+      </div>
+
+      <div>
+        <div class="field">
+          <label for="color" app-label>Доступные цвета</label>
+          <div class="field__color">
+            <input id="color" class="field__input" app-input
+                   placeholder="Введите доступные цвета..."
+                   formControlName="color"
+                   autocomplete="off"
+                   [invalid]="isColorsInvalid"
+            >
+            <div class="field__add" (click)="addColor()">
+              <svg class="icon" icon="add"></svg>
+            </div>
+          </div>
+          <app-error *ngIf="isColorsInvalid">Обязательно для заполнения!</app-error>
+        </div>
+
+        <div class="settings__checkboxes" formArrayName="colors">
+          <app-checkbox
+            *ngFor="let color of form.get('colors')?.value; let i = index"
+            [idName]="i.toString()" [labelName]="color"
+            [isChecked]="true"
+            (changeCheckbox)="deleteColor(i)"
+          ></app-checkbox>
         </div>
       </div>
     </div>
-
-
-    <div class="settings__checkboxes">
-      <app-checkbox idName="red" labelName="Красный"></app-checkbox>
-      <app-checkbox idName="white" labelName="Белый"></app-checkbox>
-      <app-checkbox idName="black" labelName="Черный"></app-checkbox>
-    </div>
-  </div>
+  </form>
 
   <div class="settings__action">
     <div class="settings__left-btns">
-      <button app-button>Сохранить</button>
-      <button app-button class="settings__action_cancel">Отменить</button>
+      <button app-button class="settings__action_save" (click)="saved.emit()" [disabled]="!isFormFull">Сохранить
+      </button>
+      <button app-button class="settings__action_cancel" (click)="clearForm()">Отменить</button>
     </div>
-    <button app-button class="settings__action_delete">Удалить</button>
+    <button app-button class="settings__action_delete" (click)="deleteCar()">Удалить</button>
   </div>
 </div>
