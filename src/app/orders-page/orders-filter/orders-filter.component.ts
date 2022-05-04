@@ -27,7 +27,6 @@ export class OrdersFilterComponent implements OnInit {
 
   private createForm() {
     this.form = this._fb.group({
-      category: '',
       city: '',
       status: '',
     });

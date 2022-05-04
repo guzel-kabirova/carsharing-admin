@@ -1,14 +1,6 @@
 <div class="container" *ngIf="form && filterData">
   <form class="filter" [formGroup]="form">
     <div>
-      <select class="filter__field" app-input formControlName="category"
-              name="category">
-        <option value="">Категория</option>
-        <option *ngFor="let category of filterData.category" [value]="category.id">{{category.name}}</option>
-      </select>
-    </div>
-
-    <div>
       <select class="filter__field" app-input formControlName="city"
               name="city">
         <option value="">Город</option>

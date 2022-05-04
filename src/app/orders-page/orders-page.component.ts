@@ -24,7 +24,6 @@ export class OrdersPageComponent implements OnInit {
 
   public status = OrderStatus;
   public filterData: IFilterData = {
-    category: [],
     city: [],
     status: [],
   };
@@ -51,9 +50,8 @@ export class OrdersPageComponent implements OnInit {
   }
 
   setFilterData() {
-    combineLatest([this._facade.appStore.categories$, this._facade.appStore.cities$, this._facade.appStore.orderStatuses$]).pipe(
-      tap(([categories, cities, statuses]) => {
-        this.filterData.category = categories;
+    combineLatest([this._facade.appStore.cities$, this._facade.appStore.orderStatuses$]).pipe(
+      tap(([cities, statuses]) => {
         this.filterData.city = cities;
         this.filterData.status = statuses;
       }),
@@ -89,9 +87,6 @@ export class OrdersPageComponent implements OnInit {
     let resultStr = '';
     Object.keys(filters).map(key => {
       switch (key) {
-        case 'category':
-          resultStr += `&categoryId=${filters.category}`;
-          break;
         case 'city':
           resultStr += `&cityId=${filters.city}`;
           break;

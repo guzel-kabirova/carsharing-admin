@@ -96,7 +96,6 @@ export interface IRateType {
 }
 
 export interface IFilterData {
-  category: ICategory[],
   city: ICity[],
   status: IStatus[]
 }
