@@ -1,0 +1,26 @@
+.message {
+  padding: 12px 25px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font: var(--text);
+  color: var(--color-white);
+  position: absolute;
+  top: 68px;
+  left: 0;
+  right: 0;
+
+  &_done {
+    background-color: var(--color-main-accent);
+  }
+
+  &_cancel {
+    background-color: var(--color-danger);
+  }
+
+  &__icon {
+    width: 18px;
+    height: 18px;
+    color: var(--color-white);
+  }
+}

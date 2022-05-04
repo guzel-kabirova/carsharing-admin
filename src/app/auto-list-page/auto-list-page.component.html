@@ -18,7 +18,7 @@
         <tr class="car-row" *ngFor="let car of cars" [routerLink]="['/admin', 'card', car.id]">
           <td>{{car.name}}</td>
           <td>{{car.description}}</td>
-          <td>{{car.categoryId.name}}</td>
+          <td>{{car.categoryId?.name}}</td>
           <td>
             <ul>
               <li *ngFor="let color of car.colors">{{color}}</li>

@@ -20,6 +20,7 @@ import {OrdersFilterComponent} from './orders-page/orders-filter/orders-filter.c
 import {InputFilterModule} from './shared/components/input-filter/input-filter.module';
 import {AutoListFilterComponent} from './auto-list-page/auto-list-filter/auto-list-filter.component';
 import {CeilPipe} from './shared/pipes/ceil.pipe';
+import {AlertMessageModule} from './shared/components/alert-message/alert-message.module';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {CeilPipe} from './shared/pipes/ceil.pipe';
     ButtonModule,
     PaginationModule,
     InputFilterModule,
+    AlertMessageModule,
     ReactiveFormsModule,
   ],
   providers: [ICONS_PROVIDER],
